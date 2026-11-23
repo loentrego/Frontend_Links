@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1B1370">
+<title>LoEntrego · Enlaces</title>
+<meta name="description" content="LoEntrego: logística de última milla en Bogotá, Funza y Soacha. Escríbenos, envía con nosotros o únete al equipo.">
+<meta property="og:title" content="LoEntrego · Logística de última milla">
+<meta property="og:description" content="Envíos para comercios en Bogotá, Funza y Soacha.">
+<meta property="og:image" content="img/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1">
+<link rel="icon" href="img/icon-192.png">
+</head>
+<body>
+
+<main class="col">
+
+  <!-- Cabecera: la ruta con su cometa, el isotipo y la bio -->
+  <header class="head">
+    <svg class="ruta" viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <path class="r-linea" d="M-10 120 C 70 120, 90 40, 170 46 S 290 120, 410 34"/>
+      <path class="r-glow" pathLength="100" d="M-10 120 C 70 120, 90 40, 170 46 S 290 120, 410 34"/>
+      <path class="r-cometa" pathLength="100" d="M-10 120 C 70 120, 90 40, 170 46 S 290 120, 410 34"/>
+      <circle class="r-parada" cx="170" cy="46" r="4"/>
+      <circle class="r-parada" cx="300" cy="96" r="4"/>
+    </svg>
+    <div class="avatar"><img src="img/isotipo-blanco.png" alt="" width="553" height="544"></div>
+    <h1><img class="wordmark" src="img/loentrego-logo-blanco.png" alt="LoEntrego — Logística de última milla" width="1383" height="374"></h1>
+    <p class="bio">Llevamos los pedidos de tu comercio hasta la puerta de tu cliente, con seguimiento y cobro contraentrega.</p>
+    <p class="zona"><span class="dot" aria-hidden="true"></span>Bogotá · Funza · Soacha</p>
+    <button type="button" class="compartir" id="compartir" aria-label="Compartir esta página">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+    </button>
+  </header>
+
+  <!-- Enlaces (se arman en script.js desde la lista ENLACES) -->
+  <nav class="enlaces" id="enlaces" aria-label="Enlaces de LoEntrego"></nav>
+
+  <!-- Redes -->
+  <nav class="redes" id="redes" aria-label="Redes sociales"></nav>
+
+  <footer class="pie">
+    <span class="iso" aria-hidden="true"></span>
+    <span>© 2026 LoEntrego · Logística de última milla</span>
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="script.js?v=1"></script>
+</body>
+</html>

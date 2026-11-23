@@ -1,0 +1,91 @@
+/* =====================================================================
+   LoEntrego · Página de enlaces
+   Una columna para celular: la ruta con el cometa arriba, el isotipo,
+   el botón de WhatsApp destacado en lima y los demás en vidrio.
+   ===================================================================== */
+:root {
+  --azul: #3422A8;
+  --azul-oscuro: #1B1370;
+  --noche: #120C52;
+  --lima: #B5DB2E;
+  --lima-hover: #C3E64A;
+  --tinta: #12092E;
+  --naranja: #FF8A1F;
+  --text: #FFFFFF;
+  --text-2: #CFC8F7;
+  --glass: rgba(255, 255, 255, 0.07);
+  --glass-hover: rgba(255, 255, 255, 0.12);
+  --line: rgba(255, 255, 255, 0.14);
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  color-scheme: dark;
+}
+[hidden] { display: none !important; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img, svg { display: block; }
+button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+html { background: var(--noche); }
+body { min-height: 100dvh; font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: linear-gradient(180deg, var(--azul) 0%, var(--azul-oscuro) 38%, var(--noche) 100%); -webkit-font-smoothing: antialiased; }
+:where(a, button):focus-visible { outline: 2.5px solid var(--lima); outline-offset: 3px; }
+
+.col { display: flex; flex-direction: column; gap: 1.5rem; width: min(480px, 100%); min-height: 100dvh; margin: 0 auto; padding: 0 1.1rem 1.5rem; }
+
+/* ---------- Cabecera ---------- */
+.head { position: relative; display: flex; flex-direction: column; align-items: center; padding-top: 4.25rem; text-align: center; }
+.ruta { position: absolute; top: 0; left: -1.1rem; right: -1.1rem; width: calc(100% + 2.2rem); height: 150px; overflow: visible; }
+.r-linea { fill: none; stroke: rgba(255, 255, 255, 0.25); stroke-width: 2; stroke-dasharray: 2 9; stroke-linecap: round; }
+.r-cometa, .r-glow { fill: none; stroke: var(--lima); stroke-linecap: round; stroke-dasharray: 14 120; stroke-dashoffset: 14; animation: cometa 3.2s linear 0.4s infinite; }
+.r-cometa { stroke-width: 3; }
+.r-glow { stroke-width: 10; opacity: 0.18; }
+.r-parada { fill: var(--noche); stroke: var(--lima); stroke-width: 2; }
+.avatar { position: relative; z-index: 1; display: grid; place-items: center; width: 104px; height: 104px; border-radius: 50%; background: linear-gradient(150deg, var(--azul), var(--azul-oscuro)); border: 3px solid var(--lima); box-shadow: 0 0 0 8px rgba(181, 219, 46, 0.14), 0 20px 40px -18px rgba(0, 0, 0, 0.6); animation: aparecer 0.6s var(--ease) both; }
+.avatar img { width: 58%; height: auto; }
+.head h1 { margin-top: 1.1rem; animation: aparecer 0.6s var(--ease) 0.08s both; }
+.wordmark { width: 180px; height: auto; }
+.bio { max-width: 34ch; margin-top: 0.85rem; font-size: 0.9375rem; line-height: 1.55; color: var(--text-2); animation: aparecer 0.6s var(--ease) 0.14s both; }
+.zona { display: inline-flex; align-items: center; gap: 8px; margin-top: 0.9rem; padding: 6px 14px; border-radius: 999px; background: var(--glass); border: 1px solid var(--line); font-size: 0.8125rem; font-weight: 600; animation: aparecer 0.6s var(--ease) 0.2s both; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lima); box-shadow: 0 0 0 4px rgba(181, 219, 46, 0.2); animation: latido 2s ease-in-out infinite; }
+.compartir { position: absolute; top: 1rem; right: 0; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--glass); border: 1px solid var(--line); transition: background 0.15s var(--ease); }
+.compartir:hover { background: var(--glass-hover); }
+.compartir svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Enlaces ---------- */
+.enlaces { display: flex; flex-direction: column; gap: 0.7rem; }
+.enlace { display: flex; align-items: center; gap: 0.9rem; min-height: 68px; padding: 0.7rem 0.9rem 0.7rem 0.7rem; border-radius: 20px; background: var(--glass); border: 1px solid var(--line); color: var(--text); text-decoration: none; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: transform 0.18s var(--ease), background 0.18s var(--ease), border-color 0.18s var(--ease); animation: aparecer 0.5s var(--ease) calc(0.25s + var(--i) * 0.06s) both; }
+.enlace:hover { transform: translateY(-2px); background: var(--glass-hover); border-color: rgba(181, 219, 46, 0.45); }
+.enlace:active { transform: scale(0.985); }
+.e-ico { display: grid; place-items: center; width: 46px; height: 46px; flex-shrink: 0; border-radius: 14px; background: rgba(255, 255, 255, 0.1); }
+.e-ico svg, .e-flecha svg, .red svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.e-txt { flex: 1; min-width: 0; text-align: left; }
+.e-txt b { display: block; font-family: 'Outfit', sans-serif; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
+.e-txt small { display: block; font-size: 0.8125rem; color: var(--text-2); }
+.e-flecha { display: grid; place-items: center; width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%; color: var(--text-2); transition: transform 0.2s var(--ease), color 0.2s var(--ease); }
+.e-flecha svg { width: 18px; height: 18px; stroke-width: 2.2; }
+.enlace:hover .e-flecha { transform: translate(2px, -2px); color: var(--lima); }
+
+.enlace.destacado { min-height: 78px; background: var(--lima); border-color: transparent; color: var(--tinta); box-shadow: 0 18px 36px -16px rgba(181, 219, 46, 0.65); }
+.enlace.destacado:hover { background: var(--lima-hover); }
+.enlace.destacado .e-ico { background: var(--tinta); color: var(--lima); }
+.enlace.destacado .e-txt b { font-size: 1.1875rem; font-weight: 700; }
+.enlace.destacado .e-txt small { color: rgba(18, 9, 46, 0.7); }
+.enlace.destacado .e-flecha { background: rgba(18, 9, 46, 0.1); color: var(--tinta); }
+
+/* ---------- Redes ---------- */
+.redes { display: flex; justify-content: center; gap: 0.6rem; }
+.red { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); color: var(--text); transition: transform 0.18s var(--ease), background 0.18s var(--ease), color 0.18s var(--ease); }
+.red:hover { transform: translateY(-3px); background: var(--lima); color: var(--tinta); }
+
+.pie { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: auto; font-size: 0.75rem; color: var(--text-2); opacity: 0.8; }
+.iso { width: 16px; height: 16px; background: var(--lima); -webkit-mask: url("img/isotipo-blanco.png") center / contain no-repeat; mask: url("img/isotipo-blanco.png") center / contain no-repeat; }
+
+.toast { position: fixed; left: 50%; bottom: 1.5rem; z-index: 10; padding: 0.6rem 1.1rem; border-radius: 999px; background: var(--lima); color: var(--tinta); font-size: 0.875rem; font-weight: 700; translate: -50% 20px; opacity: 0; transition: all 0.2s var(--ease); pointer-events: none; }
+.toast[data-show] { translate: -50% 0; opacity: 1; }
+
+@keyframes cometa { 0% { stroke-dashoffset: 14; } 70%, 100% { stroke-dashoffset: -100; } }
+@keyframes aparecer { from { opacity: 0; transform: translateY(12px); } }
+@keyframes latido { 50% { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
+
+/* Pantallas grandes: la columna flota sobre el fondo, centrada */
+@media (min-width: 700px) {
+  .col { padding-top: 2rem; padding-bottom: 2rem; }
+}

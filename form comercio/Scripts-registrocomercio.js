@@ -1,100 +1,81 @@
-  const form = document.getElementById('registroForm');
-  const successState = document.getElementById('successState');
-  const submitBtn = document.getElementById('submitBtn');
+// ============ Registro de comercio ============
+//  Envía a POST /api/registro/:token:
+//  { rol:"comercio", nombre, tipo, direccion, municipio, pedidos_diarios, celular, correo, usuario, password, acepta_datos }
+(() => {
+  'use strict';
+  const R = window.Registro;
+  const $ = (id) => document.getElementById(id);
+  const form = $('registroForm'), btn = $('submitBtn'), aviso = $('aviso');
+  const MUNICIPIOS = { bogota: 'Bogotá', funza: 'Funza', soacha: 'Soacha' };
+  const TIPOS = { comercio: 'Tienda o local', ecommerce: 'Tienda en línea', sector_publico: 'Entidad pública' };
 
-  const togglePass = document.getElementById('togglePass');
-  const passwordInput = document.getElementById('password');
-  togglePass.addEventListener('click', () => {
-    const isPass = passwordInput.type === 'password';
-    passwordInput.type = isPass ? 'text' : 'password';
-    togglePass.textContent = isPass ? 'Ocultar' : 'Ver';
-    togglePass.setAttribute('aria-label', isPass ? 'Ocultar contraseña' : 'Mostrar contraseña');
+  const avisar = (texto, tono = 'info') => { aviso.textContent = texto; aviso.dataset.tono = tono; aviso.hidden = !texto; };
+
+  // Enlace: vigente, vencido o modo demostración
+  R.verificar('comercio').then((v) => {
+    if (v.demo) avisar('Modo demostración: puedes probar el formulario, pero no se crea ninguna cuenta.', 'info');
+    else if (!v.ok) { avisar(v.motivo, 'error'); form.querySelectorAll('input, button').forEach((el) => (el.disabled = true)); }
+    if (v.vence) $('link-info').textContent = `Enlace de un solo uso · vence el ${R.fechaCorta(v.vence)}`;
   });
 
-  function showError(id, show){
-    const el = document.getElementById('err-' + id);
-    const input = document.getElementById(id);
-    if(el) el.style.display = show ? 'block' : 'none';
-    if(input) input.classList.toggle('invalid', show);
-  }
+  R.contrasena('password', 'togglePass', form.querySelector('.meter'));
+  $('celular').addEventListener('input', (e) => { e.target.value = R.formatoCelular(e.target.value); });
+  $('usuario').addEventListener('input', (e) => { e.target.value = e.target.value.toLowerCase().replace(/\s/g, ''); });
 
-  function validate(){
-    let ok = true;
-
-    const nombre = document.getElementById('nombre').value.trim();
-    if(nombre.length < 3){
-      showError('nombre', true); ok = false;
-    } else showError('nombre', false);
-
-    const direccion = document.getElementById('direccion').value.trim();
-    if(direccion.length < 5){
-      showError('direccion', true); ok = false;
-    } else showError('direccion', false);
-
-    const ciudad = document.getElementById('ciudad').value.trim();
-    if(ciudad.length < 3){
-      showError('ciudad', true); ok = false;
-    } else showError('ciudad', false);
-
-    const celular = document.getElementById('celular').value.trim();
-    if(!/^3\d{9}$/.test(celular)){
-      showError('celular', true); ok = false;
-    } else showError('celular', false);
-
-    const correo = document.getElementById('correo').value.trim();
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)){
-      showError('correo', true); ok = false;
-    } else showError('correo', false);
-
-    const usuario = document.getElementById('usuario').value.trim();
-    if(usuario.length < 4 || /\s/.test(usuario)){
-      showError('usuario', true); ok = false;
-    } else showError('usuario', false);
-
-    const password = document.getElementById('password').value;
-    if(password.length < 8){
-      showError('password', true); ok = false;
-    } else showError('password', false);
-
-    return ok;
-  }
+  const reglas = {
+    nombre: () => R.marcar('nombre', $('nombre').value.trim().length < 2),
+    direccion: () => R.marcar('direccion', $('direccion').value.trim().length < 5),
+    celular: () => R.marcar('celular', !R.celularOk($('celular').value)),
+    correo: () => R.marcar('correo', !R.correoOk($('correo').value)),
+    usuario: () => R.marcar('usuario', !R.usuarioOk($('usuario').value)),
+    password: () => R.marcar('password', $('password').value.length < 8),
+    datos: () => R.marcar('datos', !$('datos').checked),
+  };
+  // Se valida al salir de cada campo y se limpia al corregir
+  Object.keys(reglas).forEach((id) => {
+    const el = $(id);
+    el.addEventListener('blur', () => { if (el.value || el.type === 'checkbox') reglas[id](); });
+    el.addEventListener('input', () => { if (el.classList.contains('invalid')) reglas[id](); });
+    el.addEventListener('change', () => { if (el.type === 'checkbox') reglas[id](); });
+  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if(!validate()){
-      const firstInvalid = form.querySelector('.invalid');
-      if(firstInvalid) firstInvalid.focus();
+    const ok = Object.values(reglas).map((f) => f()).every(Boolean);
+    if (!ok) { form.querySelector('.invalid')?.focus(); return; }
+
+    const datos = {
+      rol: 'comercio',
+      nombre: $('nombre').value.trim(),
+      tipo: form.tipo.value,
+      direccion: $('direccion').value.trim(),
+      municipio: form.municipio.value,
+      pedidos_diarios: $('pedidos').value ? Number($('pedidos').value) : null,
+      celular: R.soloDigitos($('celular').value),
+      correo: $('correo').value.trim().toLowerCase(),
+      usuario: $('usuario').value.trim(),
+      password: $('password').value,
+      acepta_datos: true,
+    };
+
+    btn.disabled = true; btn.querySelector('span').textContent = 'Creando cuenta…';
+    const r = await R.enviar(datos);
+    if (!r.ok) {
+      Object.entries(r.campos || {}).forEach(([id, txt]) => R.marcar(id, true, txt));
+      avisar(r.mensaje, 'error');
+      btn.disabled = false; btn.querySelector('span').textContent = 'Crear cuenta de comercio';
+      form.querySelector('.invalid')?.focus();
       return;
     }
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Creando cuenta…';
-
-    const data = {
-      nombre: document.getElementById('nombre').value.trim(),
-      direccion: document.getElementById('direccion').value.trim(),
-      ciudad: document.getElementById('ciudad').value.trim(),
-      celular: document.getElementById('celular').value.trim(),
-      correo: document.getElementById('correo').value.trim(),
-      usuario: document.getElementById('usuario').value.trim(),
-      creadoEn: new Date().toISOString()
-    };
-
-    try{
-      if(window.storage){
-        await window.storage.set('comercio:' + data.usuario, JSON.stringify(data), true);
-      }
-    }catch(err){
-      console.error('No se pudo guardar el registro:', err);
-    }
-
-    document.getElementById('sum-nombre').textContent = data.nombre;
-    document.getElementById('sum-direccion').textContent = data.direccion;
-    document.getElementById('sum-ciudad').textContent = data.ciudad;
-    document.getElementById('sum-celular').textContent = data.celular;
-    document.getElementById('sum-correo').textContent = data.correo;
-    document.getElementById('sum-usuario').textContent = data.usuario;
-
-    form.classList.add('hide');
-    successState.classList.add('show');
+    $('sum-nombre').textContent = datos.nombre;
+    $('sum-tipo').textContent = TIPOS[datos.tipo];
+    $('sum-direccion').textContent = `${datos.direccion} · ${MUNICIPIOS[datos.municipio]}`;
+    $('sum-contacto').textContent = `${R.formatoCelular(datos.celular)} · ${datos.correo}`;
+    $('sum-usuario').textContent = datos.usuario;
+    form.hidden = true;
+    $('successState').hidden = false;
+    $('successState').querySelector('h2').focus?.();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+})();
