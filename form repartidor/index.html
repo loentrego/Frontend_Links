@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LoEntrego · Registro de repartidor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="img/Minilogo-transparencia.png"> 
+  <link rel="stylesheet" href="Styles-registrorepartidor.css"> 
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">
+      <img src="img/LoEntrego2026-transparente.png" class="logo-main">
+    </div>
+
+    <div class="card">
+      <form id="registroForm" novalidate>
+        <h1>Registro de repartidor</h1>
+        <p class="sub">Este enlace es de un solo uso. Completa tus datos para activar tu cuenta y empezar a recibir entregas.</p>
+
+        <div class="field">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej: Camilo Restrepo" autocomplete="name" required>
+          <div class="hint error" id="err-nombre" style="display:none;">Escribe tu nombre completo.</div>
+        </div>
+
+        <div class="field">
+          <label for="celular">Número de celular</label>
+          <input type="tel" id="celular" name="celular" placeholder="Ej: 3001234567" inputmode="numeric" autocomplete="tel" required>
+          <div class="hint error" id="err-celular" style="display:none;">Ingresa un celular colombiano válido (10 dígitos, empieza en 3).</div>
+        </div>
+
+        <div class="field">
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" name="correo" placeholder="Ej: camilo@correo.com" autocomplete="email" required>
+          <div class="hint error" id="err-correo" style="display:none;">Ingresa un correo electrónico válido.</div>
+        </div>
+
+        <div class="field">
+          <label for="usuario">Usuario</label>
+          <input type="text" id="usuario" name="usuario" placeholder="Ej: camilo.r" autocomplete="username" required>
+          <div class="hint error" id="err-usuario" style="display:none;">El usuario debe tener mínimo 4 caracteres y sin espacios.</div>
+        </div>
+
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <div class="input-shell">
+            <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" required>
+            <button type="button" class="toggle-pass" id="togglePass" aria-label="Mostrar contraseña">Ver</button>
+          </div>
+          <div class="hint error" id="err-password" style="display:none;">La contraseña debe tener al menos 8 caracteres.</div>
+        </div>
+
+        <button type="submit" class="submit" id="submitBtn">Crear mi cuenta</button>
+
+        <p class="expiry">Este enlace expira en 1 hora.</p>
+      </form>
+
+      <div class="success" id="successState">
+        <div class="celebration" aria-hidden="true">
+          <span class="spark s1"></span>
+          <span class="spark s2"></span>
+          <span class="spark s3"></span>
+          <span class="spark s4"></span>
+          <span class="spark s5"></span>
+          <span class="spark s6"></span>
+        </div>
+        <div class="check">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5L9.5 18L20 6" stroke="#1A1233" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2>¡Gracias por trabajar con nosotros!</h2>
+        <p>Tu cuenta quedó activa. abre la app de LoEntrego e inicia sesión con tu usuario y contraseña para empezar a recibir entregas.</p>
+        <div class="summary">
+          <div><b>Nombre:</b> <span id="sum-nombre"></span></div>
+          <div><b>Celular:</b> <span id="sum-celular"></span></div>
+          <div><b>Correo:</b> <span id="sum-correo"></span></div>
+          <div><b>Usuario:</b> <span id="sum-usuario"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="Scripts-registrorepartidor.js"></script>
+
+</body>
+</html>
