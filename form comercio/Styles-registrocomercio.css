@@ -181,3 +181,6 @@ legend + * { clear: both; }
   .done-ico { box-shadow: 0 0 0 8px rgba(181, 219, 46, 0.14); }
   .ticket { background: linear-gradient(150deg, #3422A8, #22188A); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14); }
 }
+
+/* Escritorio: el panel azul y el primer bloque empiezan a la misma altura */
+@media (min-width: 861px) { .main { padding-top: 0; } }

@@ -62,6 +62,8 @@
     tiktok: '<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.3 5 4.5"/>',
     correo: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/>',
   };
+  // Acento de cada parada: azul, naranja y lavanda de la paleta (la primera ya es lima)
+  const TONOS = ['#B5DB2E', '#4F8DFF', '#FF8A1F', '#C3B9FF'];
   const svg = (k) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONOS[k] || ''}</svg>`;
   const ext = (url) => /^https?:/.test(url) ? ' target="_blank" rel="noopener"' : '';
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -92,7 +94,7 @@
     const lista = $('paradas');
     const pintar = () => {
       lista.innerHTML = p.paradas.map((e, i) => `
-        <li class="parada${i === 0 ? ' destacada' : ''}" style="--i:${i}">
+        <li class="parada${i === 0 ? ' destacada' : ''}" style="--i:${i};--tono:${TONOS[i % TONOS.length]}">
           <span class="nodo" aria-hidden="true"></span>
           <a class="tarjeta" href="${esc(e.url)}"${ext(e.url)}>
             <span class="t-ico">${svg(e.icono)}</span>

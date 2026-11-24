@@ -183,3 +183,26 @@ html, body { position: fixed; inset: 0; overscroll-behavior: none; touch-action:
 .col { justify-content: safe center; }
 /* Primer nivel de ajuste: solo se aprietan los espacios, sin esconder nada */
 :root.c0 { --sec: clamp(0.8rem, 2.6dvh, 1.6rem); --med: clamp(0.45rem, 1.2dvh, 0.8rem); }
+
+/* =====================================================================
+   Más paleta, con sutileza: azul, naranja y lavanda además del lima
+   ===================================================================== */
+/* Foto: azul de marca en vez del casi negro */
+.avatar { background: radial-gradient(70% 70% at 30% 25%, #5A48D6 0%, #3422A8 55%, #22188A 100%); box-shadow: 0 0 0 3px var(--lima), 0 0 0 7px rgba(79, 141, 255, 0.18), 0 14px 30px -12px rgba(0, 0, 0, 0.55); }
+/* Fondo: luz azul arriba y un toque cálido abajo (muy suave) */
+body { background:
+  radial-gradient(60% 40% at 50% 0%, rgba(79, 141, 255, 0.22), transparent 70%),
+  radial-gradient(50% 30% at 85% 100%, rgba(255, 138, 31, 0.10), transparent 70%),
+  linear-gradient(180deg, #2A1C9A 0%, #1B1370 45%, #160F5E 100%); }
+html { background: #160F5E; }
+/* Cada parada con su tono en el ícono, el nodo y el borde al pasar */
+.parada:not(.destacada) .t-ico { background: color-mix(in srgb, var(--tono) 18%, transparent); color: var(--tono); }
+.parada:not(.destacada) .tarjeta:hover { border-color: color-mix(in srgb, var(--tono) 60%, transparent); }
+.parada:not(.destacada) .tarjeta:hover .t-flecha { color: var(--tono); }
+.pasada:not(.destacada) > .nodo { background: var(--tono); border-color: var(--tono); box-shadow: 0 0 0 5px color-mix(in srgb, var(--tono) 18%, transparent); }
+.parada:not(.destacada) .t-num { color: color-mix(in srgb, var(--tono) 70%, #fff); }
+/* Detalles */
+.vivo { border-color: rgba(79, 141, 255, 0.35); }
+.perfiles { border-color: rgba(195, 185, 255, 0.22); }
+.red:nth-child(1):hover { background: #FF8A1F; color: #12092E; }
+.red:nth-child(2):hover { background: #4F8DFF; color: #fff; }

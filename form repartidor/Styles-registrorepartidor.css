@@ -193,3 +193,6 @@ select.input { appearance: none; padding-right: 34px; cursor: pointer; backgroun
   select.input option { background: #1D1757; }
 }
 @media (max-width: 520px) { .doc { grid-template-columns: 100px 1fr; } }
+
+/* Escritorio: el panel azul y el primer bloque empiezan a la misma altura */
+@media (min-width: 861px) { .main { padding-top: 0; } }
