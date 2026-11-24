@@ -194,5 +194,19 @@ select.input { appearance: none; padding-right: 34px; cursor: pointer; backgroun
 }
 @media (max-width: 520px) { .doc { grid-template-columns: 100px 1fr; } }
 
-/* Escritorio: el panel azul y el primer bloque empiezan a la misma altura */
-@media (min-width: 861px) { .main { padding-top: 0; } }
+
+/* Escritorio: los dos cuadros a la misma altura (la de antes, con aire arriba) */
+@media (min-width: 861px) {
+  .page { padding-top: clamp(2rem, 5vh, 3.5rem); }
+  .aside { top: clamp(2rem, 5vh, 3.5rem); }
+  .main { padding-top: 0; }
+}
+/* Celular: el panel azul del mismo ancho que los bloques; los beneficios se desvanecen en los bordes */
+@media (max-width: 860px) {
+  .page { padding: 1rem 1rem 1.5rem; }
+  .aside { border-radius: 24px; padding: 1.5rem 1.25rem; }
+  .main { padding: 0; }
+  .perks { margin: 1.25rem -1.25rem 0; padding: 0 1.25rem 4px; scroll-padding-inline: 1.25rem;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 1.25rem, #000 calc(100% - 2.5rem), transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 1.25rem, #000 calc(100% - 2.5rem), transparent 100%); }
+}
