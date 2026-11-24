@@ -1,9 +1,8 @@
 // =====================================================================
 //  LoEntrego · Página de enlaces
-//  Mosaico de tarjetas sobre el planeta. Todo cabe en una pantalla.
+//  Estilo Linktree: perfil, columna de botones y redes. Una pantalla sin scroll.
 //  Para cambiar, agregar o quitar enlaces solo se editan ENLACES y REDES.
-//    tamano: 'ancha' (fila completa) o 'normal' (media fila)
-//    destacado: true → la tarjeta lima (usar en una sola)
+//    destacado: true → el botón lima (usar en uno solo)
 // =====================================================================
 (() => {
   'use strict';
@@ -11,12 +10,12 @@
   const wa = (texto) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
 
   const ENLACES = [
-    { titulo: 'Escríbenos por WhatsApp', detalle: 'Cotiza tu envío en minutos', url: wa('Hola LoEntrego, quiero información para enviar mis pedidos.'), icono: 'whatsapp', tamano: 'ancha', destacado: true },
-    { titulo: 'Envía con nosotros', detalle: 'Registra tu comercio', url: 'https://loentrego.com/Pages/indexunete.html', icono: 'tienda' },
-    { titulo: 'Sé repartidor', detalle: 'Únete al equipo', url: wa('Hola LoEntrego, quiero trabajar como repartidor.'), icono: 'moto' },
-    { titulo: '¿Dónde va mi pedido?', detalle: 'Con tu código LOE-', url: wa('Hola LoEntrego, quiero saber cómo va mi pedido. Mi código es LOE-'), icono: 'caja' },
-    { titulo: 'Entrar a la app', detalle: 'Comercios y repartidores', url: 'https://app.loentrego.com/', icono: 'app' },
-    { titulo: 'Conoce LoEntrego', detalle: 'Cobertura, tarifa y cómo funciona', url: 'https://loentrego.com/', icono: 'ruta', tamano: 'ancha' },
+    { titulo: 'Escríbenos por WhatsApp', url: wa('Hola LoEntrego, quiero información para enviar mis pedidos.'), icono: 'whatsapp', destacado: true },
+    { titulo: 'Envía tus pedidos con nosotros', url: 'https://loentrego.com/Pages/indexunete.html', icono: 'tienda' },
+    { titulo: 'Quiero ser repartidor', url: wa('Hola LoEntrego, quiero trabajar como repartidor.'), icono: 'moto' },
+    { titulo: '¿Dónde va mi pedido?', url: wa('Hola LoEntrego, quiero saber cómo va mi pedido. Mi código es LOE-'), icono: 'caja' },
+    { titulo: 'Entrar a la app', url: 'https://app.loentrego.com/', icono: 'app' },
+    { titulo: 'Conoce LoEntrego', url: 'https://loentrego.com/', icono: 'ruta' },
   ];
 
   const REDES = [
@@ -44,12 +43,22 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const $ = (id) => document.getElementById(id);
 
-  $('mosaico').innerHTML = ENLACES.map((e, i) => `
-    <a class="tile${e.tamano === 'ancha' ? ' ancha' : ''}${e.destacado ? ' destacado' : ''}" href="${esc(e.url)}"${ext(e.url)} style="--i:${i}">
-      <span class="t-ico">${svg(e.icono)}</span>
-      <span class="t-txt"><b>${esc(e.titulo)}</b><small>${esc(e.detalle)}</small></span>
-      <span class="t-flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-    </a>`).join('');
+  // Botón tipo Linktree: ícono a la izquierda, texto centrado, menú (⋯) a la derecha para compartir el enlace
+  const toast = $('toast');
+  let t;
+  const avisar = (txt) => { toast.textContent = txt; toast.dataset.show = ''; clearTimeout(t); t = setTimeout(() => delete toast.dataset.show, 1800); };
+
+  $('enlaces').innerHTML = ENLACES.map((e, i) => `
+    <div class="boton${e.destacado ? ' destacado' : ''}" style="--i:${i}">
+      <a href="${esc(e.url)}"${ext(e.url)}><span class="b-ico">${svg(e.icono)}</span><span class="b-txt">${esc(e.titulo)}</span></a>
+      <button type="button" class="b-mas" data-url="${esc(e.url)}" aria-label="Compartir: ${esc(e.titulo)}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button>
+    </div>`).join('');
+  document.getElementById('enlaces').addEventListener('click', async (ev) => {
+    const b = ev.target.closest('.b-mas'); if (!b) return;
+    const url = b.dataset.url;
+    if (navigator.share) { try { await navigator.share({ url }); } catch { /* cancelado */ } return; }
+    try { await navigator.clipboard.writeText(url); avisar('Enlace copiado'); } catch { avisar(url); }
+  });
 
   $('redes').innerHTML = REDES.map((r) => `<a class="red" href="${esc(r.url)}"${ext(r.url)} aria-label="${esc(r.nombre)}" title="${esc(r.nombre)}">${svg(r.icono)}</a>`).join('');
 
@@ -74,9 +83,6 @@
   encajar();
 
   // ---------- Compartir ----------
-  const toast = $('toast');
-  let t;
-  const avisar = (txt) => { toast.textContent = txt; toast.dataset.show = ''; clearTimeout(t); t = setTimeout(() => delete toast.dataset.show, 1800); };
   $('compartir').addEventListener('click', async () => {
     const datos = { title: 'LoEntrego', text: 'Logística de última milla en Bogotá, Funza y Soacha', url: location.href };
     if (navigator.share) { try { await navigator.share(datos); } catch { /* cancelado */ } return; }

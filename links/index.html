@@ -12,34 +12,32 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=8">
+<link rel="stylesheet" href="styles.css?v=9">
 <link rel="icon" href="img/icon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 </head>
 <body>
 
-<!-- Fondo: el planeta con Bogotá asomando abajo -->
-<div class="fondo" aria-hidden="true">
-  <img class="planeta" src="img/planeta.png" alt="" width="1600" height="1000">
-</div>
-
 <main class="col">
-  <header class="cab">
-    <button type="button" class="compartir" id="compartir" aria-label="Compartir esta página">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
-    </button>
-    <img class="wordmark" src="img/loentrego-logo-blanco.png" alt="LoEntrego — Logística de última milla" width="1383" height="374">
-    <p class="frase">Tus pedidos, <span>en movimiento.</span></p>
-    <p class="zona"><i aria-hidden="true"></i>Bogotá · Funza · Soacha</p>
+  <button type="button" class="compartir" id="compartir" aria-label="Compartir esta página">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+  </button>
+
+  <header class="perfil">
+    <div class="avatar"><img src="img/isotipo-blanco.png" alt="" width="553" height="544"></div>
+    <h1>@loentrego</h1>
+    <p class="bio">Logística de última milla · Bogotá, Funza y Soacha 📦</p>
   </header>
 
-  <!-- Mosaico de enlaces (se arma en script.js desde la lista ENLACES) -->
-  <nav class="mosaico" id="mosaico" aria-label="Enlaces de LoEntrego"></nav>
+  <!-- Botones (se arman en script.js desde la lista ENLACES) -->
+  <nav class="enlaces" id="enlaces" aria-label="Enlaces de LoEntrego"></nav>
 
   <nav class="redes" id="redes" aria-label="Redes y contacto"></nav>
+
+  <footer class="pie"><img src="img/loentrego-logo-blanco.png" alt="LoEntrego" width="1383" height="374"></footer>
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="script.js?v=9"></script>
+<script src="script.js?v=10"></script>
 </body>
 </html>
