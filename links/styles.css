@@ -37,13 +37,9 @@ body { min-height: 100dvh; font-family: 'Inter', system-ui, sans-serif; color: v
 .compartir { position: fixed; z-index: 2; top: max(0.9rem, env(safe-area-inset-top)); right: 1rem; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.14); border: 1px solid var(--line); }
 .compartir:hover { background: rgba(255, 255, 255, 0.24); }
 .compartir svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.avatar-wrap { position: relative; display: grid; place-items: center; width: clamp(150px, 22dvh, 190px); height: clamp(84px, 13dvh, 108px); animation: llegar 0.6s var(--ease) both; }
-.orbita { position: absolute; inset: -14% -6%; width: 112%; height: 128%; overflow: visible; transform: rotate(-14deg); animation: orbitar 9s linear infinite; }
-.orbita ellipse { fill: none; stroke: rgba(181, 219, 46, 0.7); stroke-width: 1.6; stroke-dasharray: 3 5; vector-effect: non-scaling-stroke; }
-.orbita .sat { fill: var(--lima); filter: drop-shadow(0 0 4px rgba(181, 219, 46, 0.9)); }
+.avatar-wrap { position: relative; display: grid; place-items: center; animation: llegar 0.6s var(--ease) both; }
 .avatar { position: relative; z-index: 1; display: grid; place-items: center; width: clamp(72px, 11.5dvh, 96px); height: clamp(72px, 11.5dvh, 96px); border-radius: 50%; background: var(--tinta); box-shadow: 0 0 0 3px var(--lima), 0 14px 30px -12px rgba(0, 0, 0, 0.6); }
 .avatar img { width: 54%; height: auto; }
-.avatar::after { content: ''; position: absolute; inset: -9px; border-radius: 50%; border: 1px solid rgba(181, 219, 46, 0.35); animation: onda 2.6s ease-out infinite; }
 .cab h1 { display: inline-flex; align-items: center; gap: 6px; margin-top: clamp(0.5rem, 1.4dvh, 0.8rem); font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 700; animation: llegar 0.6s var(--ease) 0.06s both; }
 .verif svg { width: 20px; height: 20px; fill: var(--lima); }
 .verif .ok { fill: none; stroke: var(--tinta); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
@@ -154,8 +150,11 @@ html, body { position: fixed; inset: 0; overscroll-behavior: none; touch-action:
 .col { height: 100%; transform-origin: top center; }
 /* Niveles de compactación que aplica script.js si algo no cabe */
 .c1 .t-num, .c1 .vivo { display: none; }
-.c2 .t-txt > span, .c2 .orbita { display: none; }
-.c3 .bio { display: none; }
+.c2 .t-txt > span, .c2 .c3 .bio { display: none; }
 .c4 .pie { display: none; }
 .c4 .tarjeta { padding-block: 0.35rem; }
 @media (max-width: 370px) { .red { width: 34px; height: 34px; border-radius: 10px; } .red svg { width: 17px; height: 17px; } .redes { gap: 0.3rem; } .entregado-txt b { font-size: 0.9375rem; } }
+/* Todo el bloque centrado en la pantalla; la ruta ocupa solo lo que necesita (sin huecos) */
+.col { justify-content: center; }
+.ruta { flex: none; }
+.pie { margin-top: 0; }
