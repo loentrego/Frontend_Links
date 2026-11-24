@@ -50,7 +50,7 @@
 
   $('enlaces').innerHTML = ENLACES.map((e, i) => `
     <div class="boton${e.destacado ? ' destacado' : ''}" style="--i:${i}">
-      <a href="${esc(e.url)}"${ext(e.url)}><span class="b-ico">${svg(e.icono)}</span><span class="b-txt">${esc(e.titulo)}</span></a>
+      <a href="${esc(e.url)}"${ext(e.url)}><span class="b-ico">${svg(e.icono)}</span><span class="b-txt">${esc(e.titulo)}</span>${e.destacado ? '<span class="b-brillo" aria-hidden="true"></span>' : ''}</a>
       <button type="button" class="b-mas" data-url="${esc(e.url)}" aria-label="Compartir: ${esc(e.titulo)}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button>
     </div>`).join('');
   document.getElementById('enlaces').addEventListener('click', async (ev) => {

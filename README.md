@@ -6,7 +6,7 @@ Páginas sueltas que se comparten por enlace.
 |---|---|---|
 | `form comercio/` | Registro de comercio con el enlace de un solo uso que genera el panel admin. | Panel azul con beneficios y formulario en 3 bloques. Tema claro u oscuro automático. |
 | `form repartidor/` | Registro de repartidor con el enlace de un solo uso. | El mismo diseño del registro de comercio, en 2 bloques: datos personales y acceso. Sin datos de vehículo; la zona la asigna el administrador. |
-| `links/` | Página de enlaces (para la bio de Instagram, etc.). | Estilo Linktree: foto redonda, @loentrego y bio; botones en columna con el texto centrado (WhatsApp en lima); redes y logo al pie. Una sola pantalla sin scroll. |
+| `links/` | Página de enlaces (para la bio de Instagram, etc.). | Estilo Linktree con los recursos de la marca: foto con órbita y satélite, sello de cuenta oficial, "En ruta ahora", botones con la trama de puntos y un cometa de luz en WhatsApp, estrellas y el planeta con Bogotá de fondo. Una sola pantalla sin scroll. |
 | `registro-comun.js` | Lo que comparten los dos formularios: token, API, validaciones, celular y contraseña. | — |
 
 ## Formularios de registro
