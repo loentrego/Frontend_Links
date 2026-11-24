@@ -4,8 +4,8 @@ Páginas sueltas que se comparten por enlace.
 
 | Carpeta | Qué es | Estilo |
 |---|---|---|
-| `form comercio/` | Registro de comercio con el enlace de un solo uso que genera el panel admin. | "Día": panel azul con beneficios y formulario en 3 bloques. Tema claro u oscuro automático. |
-| `form repartidor/` | Registro de repartidor con el enlace de un solo uso. | "Noche": 3 pasos marcados como una ruta con cometa, vehículos en tarjetas y placa colombiana. Tema claro u oscuro automático. |
+| `form comercio/` | Registro de comercio con el enlace de un solo uso que genera el panel admin. | Panel azul con beneficios y formulario en 3 bloques. Tema claro u oscuro automático. |
+| `form repartidor/` | Registro de repartidor con el enlace de un solo uso. | El mismo diseño del registro de comercio (panel azul + 3 bloques), con sus campos: documento, vehículo, placa y zona. |
 | `links/` | Página de enlaces tipo Linktree (para la bio de Instagram, TikTok, etc.). | "La guía y su ruta": una etiqueta de envío arriba, el visitante elige si es comercio, repartidor o cliente, y los enlaces son paradas que el cometa recorre al desplazar. |
 | `registro-comun.js` | Lo que comparten los dos formularios: token, API, validaciones, celular y contraseña. | — |
 

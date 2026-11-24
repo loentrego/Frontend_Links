@@ -3,77 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#F1EFF9" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0B0826" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#3422A8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#130F3C" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
 <meta name="robots" content="noindex">
-<title>Únete al equipo · LoEntrego</title>
+<title>Registro de repartidor · LoEntrego</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="Styles-registrorepartidor.css?v=6">
+<link rel="stylesheet" href="Styles-registrorepartidor.css?v=7">
 <link rel="icon" href="img/icon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 </head>
 <body>
 
 <div class="page">
-  <header class="top">
-    <picture>
-      <source srcset="img/loentrego-logo-tinta.png" media="(prefers-color-scheme: light)">
-      <img class="logo" src="img/LoEntrego2026-transparente.png" alt="LoEntrego — Logística de última milla" width="1383" height="374">
-    </picture>
-    <span class="tag">Registro de repartidor</span>
-  </header>
 
-  <div class="layout">
-    <!-- Lado izquierdo (escritorio): la invitación -->
-    <section class="intro">
-      <h1>Súbete a<br>la <span>ruta.</span></h1>
-      <p>Tres pasos y quedas listo para recibir entregas en tu zona desde la app de LoEntrego.</p>
-      <ul class="intro-list">
-        <li><b>Cerca de casa</b>Repartes en la zona que elijas.</li>
-        <li><b>Rutas claras</b>Cada entrega con dirección, contacto y cobro.</li>
-        <li><b>Siempre acompañado</b>Soporte por WhatsApp mientras repartes.</li>
+  <!-- ===== Panel de marca ===== -->
+  <aside class="aside">
+    <img class="aside-logo" src="img/LoEntrego2026-transparente.png" alt="LoEntrego — Logística de última milla" width="1383" height="374">
+    <div class="aside-body">
+      <p class="kicker">Registro de repartidor</p>
+      <h1>Súbete a<br><span>la ruta.</span></h1>
+      <p class="aside-sub">Crea tu cuenta y prepárate para recibir entregas en tu zona desde la app de LoEntrego.</p>
+      <ul class="perks">
+        <li><span class="perk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><b>Cerca de casa</b><small>Repartes en la zona que elijas.</small></div></li>
+        <li><span class="perk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg></span><div><b>Rutas claras</b><small>Cada entrega con dirección, contacto y cobro.</small></div></li>
+        <li><span class="perk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.4Z"/></svg></span><div><b>Siempre acompañado</b><small>Soporte por WhatsApp mientras repartes.</small></div></li>
       </ul>
-    </section>
+    </div>
+    <p class="aside-foot" id="link-info">Enlace de un solo uso</p>
+  </aside>
 
-    <main class="card">
-      <!-- Progreso: la ruta con sus tres paradas -->
-      <ol class="ruta" aria-label="Progreso del registro">
-        <li class="parada" data-paso="1" aria-current="step"><span class="punto"></span><b>Tú</b></li>
-        <li class="parada" data-paso="2"><span class="punto"></span><b>Vehículo</b></li>
-        <li class="parada" data-paso="3"><span class="punto"></span><b>Acceso</b></li>
-        <li class="tramo" aria-hidden="true"><i class="tramo-fill"></i><i class="cometa"></i></li>
-      </ol>
+  <!-- ===== Formulario ===== -->
+  <main class="main">
+    <form class="form" id="registroForm" novalidate>
+      <div class="aviso" id="aviso" hidden></div>
 
-      <form id="registroForm" novalidate>
-        <div class="aviso" id="aviso" hidden></div>
+      <!-- 1. Tus datos -->
+      <fieldset class="block">
+        <legend><span class="n">1</span>Tus datos</legend>
 
-        <!-- Paso 1 -->
-        <section class="paso" data-paso="1" aria-labelledby="t1">
-          <h2 id="t1">Cuéntanos de ti</h2>
+        <div class="field">
+          <label for="nombre">Nombre completo</label>
+          <input class="input" type="text" id="nombre" name="nombre" placeholder="Ej. Camilo Restrepo" autocomplete="name" maxlength="60" required>
+          <p class="err" id="err-nombre">Escribe tu nombre y tu apellido.</p>
+        </div>
+
+        <div class="doc">
           <div class="field">
-            <label for="nombre">Nombre completo</label>
-            <input class="input" type="text" id="nombre" name="nombre" placeholder="Camilo Restrepo" autocomplete="name" maxlength="60" required>
-            <p class="err" id="err-nombre">Escribe tu nombre y tu apellido.</p>
+            <label for="tipo_documento">Documento</label>
+            <select class="input" id="tipo_documento" name="tipo_documento">
+              <option value="cc">C.C.</option>
+              <option value="ce">C.E.</option>
+              <option value="ppt">PPT</option>
+              <option value="pasaporte">Pasaporte</option>
+            </select>
           </div>
-          <div class="row-doc">
-            <div class="field">
-              <label for="tipo_documento">Documento</label>
-              <select class="input" id="tipo_documento" name="tipo_documento">
-                <option value="cc">C.C.</option>
-                <option value="ce">C.E.</option>
-                <option value="ppt">PPT</option>
-                <option value="pasaporte">Pasaporte</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="documento">Número</label>
-              <input class="input" type="text" id="documento" name="documento" placeholder="1012345678" inputmode="numeric" maxlength="15" required>
-              <p class="err" id="err-documento">Entre 5 y 15 caracteres.</p>
-            </div>
+          <div class="field">
+            <label for="documento">Número</label>
+            <input class="input" type="text" id="documento" name="documento" placeholder="Ej. 1012345678" inputmode="numeric" maxlength="15" required>
+            <p class="err" id="err-documento">Entre 5 y 15 caracteres.</p>
           </div>
+        </div>
+
+        <div class="row">
           <div class="field">
             <label for="celular">Celular (con WhatsApp)</label>
             <input class="input" type="tel" id="celular" name="celular" placeholder="300 123 4567" inputmode="numeric" autocomplete="tel" maxlength="12" required>
@@ -84,43 +78,44 @@
             <input class="input" type="email" id="correo" name="correo" placeholder="camilo@correo.com" autocomplete="email" maxlength="120" required>
             <p class="err" id="err-correo">Revisa el correo.</p>
           </div>
-        </section>
+        </div>
+      </fieldset>
 
-        <!-- Paso 2 -->
-        <section class="paso" data-paso="2" aria-labelledby="t2" hidden>
-          <h2 id="t2">¿Con qué repartes?</h2>
-          <div class="vehiculos" role="radiogroup" aria-label="Vehículo">
-            <label class="veh"><input type="radio" name="vehiculo" value="moto" checked>
-              <span><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="11" cy="33" r="7"/><circle cx="37" cy="33" r="7"/><path d="M11 33h9l4-7h9l4 7"/><path d="M16 22h10l2 4H14Z"/><path d="M33 26l-3-9h5M18 18h6"/></svg><b>Moto</b></span></label>
-            <label class="veh"><input type="radio" name="vehiculo" value="bicicleta">
-              <span><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="11" cy="33" r="7"/><circle cx="37" cy="33" r="7"/><path d="M11 33l8-14h12l6 14M19 19l6 14h-14M27 13h6"/></svg><b>Bicicleta</b></span></label>
-            <label class="veh"><input type="radio" name="vehiculo" value="carro">
-              <span><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 31v-6l5-9h22l7 9h2v6"/><circle cx="14" cy="32" r="4"/><circle cx="34" cy="32" r="4"/><path d="M18 32h12M11 25h31"/></svg><b>Carro</b></span></label>
-            <label class="veh"><input type="radio" name="vehiculo" value="a_pie">
-              <span><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="26" cy="9" r="4"/><path d="M24 15l-5 10 7 5v10M24 15l6 8 6 1M19 25l-6 13"/></svg><b>A pie</b></span></label>
-          </div>
-          <div class="field" id="campo-placa">
-            <label for="placa">Placa</label>
-            <div class="placa-wrap">
-              <input class="input placa" type="text" id="placa" name="placa" placeholder="ABC12D" autocapitalize="characters" maxlength="7" autocomplete="off" spellcheck="false">
-              <span class="placa-ciudad" aria-hidden="true">COLOMBIA</span>
-            </div>
-            <p class="err" id="err-placa">Escribe la placa (p. ej. ABC12D o ABC123).</p>
-          </div>
-          <div class="field">
-            <span class="label" id="lbl-zona">¿Dónde quieres repartir?</span>
-            <div class="zonas" role="radiogroup" aria-labelledby="lbl-zona">
-              <label><input type="radio" name="municipio" value="bogota" checked><span>Bogotá</span></label>
-              <label><input type="radio" name="municipio" value="funza"><span>Funza</span></label>
-              <label><input type="radio" name="municipio" value="soacha"><span>Soacha</span></label>
-            </div>
-            <p class="hint">La zona exacta la asigna el equipo de LoEntrego.</p>
-          </div>
-        </section>
+      <!-- 2. Cómo repartes -->
+      <fieldset class="block">
+        <legend><span class="n">2</span>Cómo repartes</legend>
 
-        <!-- Paso 3 -->
-        <section class="paso" data-paso="3" aria-labelledby="t3" hidden>
-          <h2 id="t3">Tu acceso a la app</h2>
+        <div class="field">
+          <span class="label" id="lbl-vehiculo">Vehículo</span>
+          <div class="chips" role="radiogroup" aria-labelledby="lbl-vehiculo">
+            <label class="chip"><input type="radio" name="vehiculo" value="moto" checked><span>Moto</span></label>
+            <label class="chip"><input type="radio" name="vehiculo" value="bicicleta"><span>Bicicleta</span></label>
+            <label class="chip"><input type="radio" name="vehiculo" value="carro"><span>Carro</span></label>
+            <label class="chip"><input type="radio" name="vehiculo" value="a_pie"><span>A pie</span></label>
+          </div>
+        </div>
+
+        <div class="field" id="campo-placa">
+          <label for="placa">Placa</label>
+          <input class="input placa" type="text" id="placa" name="placa" placeholder="ABC12D" autocapitalize="characters" maxlength="6" autocomplete="off" spellcheck="false">
+          <p class="err" id="err-placa">Escribe la placa (p. ej. ABC12D o ABC123).</p>
+        </div>
+
+        <div class="field">
+          <span class="label" id="lbl-municipio">¿Dónde quieres repartir?</span>
+          <div class="seg" role="radiogroup" aria-labelledby="lbl-municipio">
+            <label><input type="radio" name="municipio" value="bogota" checked><span>Bogotá</span></label>
+            <label><input type="radio" name="municipio" value="funza"><span>Funza</span></label>
+            <label><input type="radio" name="municipio" value="soacha"><span>Soacha</span></label>
+          </div>
+          <p class="hint">La zona exacta la asigna el equipo de LoEntrego.</p>
+        </div>
+      </fieldset>
+
+      <!-- 3. Acceso -->
+      <fieldset class="block">
+        <legend><span class="n">3</span>Tu acceso a la app</legend>
+        <div class="row">
           <div class="field">
             <label for="usuario">Usuario</label>
             <input class="input" type="text" id="usuario" name="usuario" placeholder="camilo.r" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="40" required>
@@ -137,50 +132,45 @@
             <div class="meter" aria-hidden="true"><i></i><i></i><i></i></div>
             <p class="err" id="err-password">Mínimo 8 caracteres.</p>
           </div>
-          <label class="check">
-            <input type="checkbox" id="datos" name="datos" required>
-            <span>Acepto el tratamiento de mis datos para coordinar mis entregas (Ley 1581 de 2012).</span>
-          </label>
-          <p class="err" id="err-datos">Necesitamos tu autorización para crear la cuenta.</p>
-        </section>
-
-        <div class="nav">
-          <button type="button" class="btn-back" id="atras" hidden>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Atrás
-          </button>
-          <button type="submit" class="btn-next" id="submitBtn">
-            <span>Siguiente</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
         </div>
-        <p class="link-info" id="link-info">Enlace de un solo uso</p>
-      </form>
+        <label class="check">
+          <input type="checkbox" id="datos" name="datos" required>
+          <span>Acepto el tratamiento de mis datos para coordinar mis entregas (Ley 1581 de 2012).</span>
+        </label>
+        <p class="err" id="err-datos">Necesitamos tu autorización para crear la cuenta.</p>
+      </fieldset>
 
-      <!-- Listo -->
-      <section class="done" id="successState" hidden aria-live="polite">
-        <svg class="done-ruta" viewBox="0 0 320 90" aria-hidden="true">
-          <path class="dr-line" d="M14 70 C 90 70, 110 20, 170 24 S 260 66, 306 22"/>
-          <path class="dr-comet" pathLength="100" d="M14 70 C 90 70, 110 20, 170 24 S 260 66, 306 22"/>
-          <circle class="dr-start" cx="14" cy="70" r="5"/>
-          <circle class="dr-end" cx="306" cy="22" r="7"/>
-        </svg>
-        <h2>¡Bienvenido al equipo!</h2>
-        <p>Tu cuenta quedó creada. Abre la app de LoEntrego e inicia sesión: cuando el equipo te active, verás tus entregas ahí.</p>
-        <dl class="resumen">
-          <div><dt>Nombre</dt><dd id="sum-nombre"></dd></div>
-          <div><dt>Vehículo</dt><dd id="sum-vehiculo"></dd></div>
+      <button type="submit" class="submit" id="submitBtn">
+        <span>Crear mi cuenta</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
+
+    <!-- Listo -->
+    <section class="done" id="successState" hidden aria-live="polite">
+      <div class="done-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6"/></svg></div>
+      <h2>¡Bienvenido al equipo!</h2>
+      <p>Tu cuenta quedó creada. Abre la app de LoEntrego e inicia sesión: cuando el equipo te active, verás tus entregas ahí.</p>
+      <div class="ticket">
+        <div class="ticket-top"><span class="pill">En proceso</span><span class="ticket-code" id="sum-vehiculo"></span></div>
+        <p class="ticket-name" id="sum-nombre"></p>
+        <dl>
           <div><dt>Zona</dt><dd id="sum-zona"></dd></div>
+          <div><dt>Contacto</dt><dd id="sum-contacto"></dd></div>
           <div><dt>Usuario</dt><dd id="sum-usuario"></dd></div>
         </dl>
-        <a class="btn-next" href="https://app.loentrego.com/"><span>Abrir la app</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </section>
-    </main>
-  </div>
+      </div>
+      <a class="submit" href="https://app.loentrego.com/">
+        <span>Abrir la app</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </section>
 
-  <p class="help">¿Dudas? <a href="https://wa.me/573101234567?text=Hola%2C%20tengo%20una%20duda%20con%20mi%20registro%20de%20repartidor" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></p>
+    <p class="help">¿Dudas? Escríbenos a <a href="https://wa.me/573101234567?text=Hola%2C%20tengo%20una%20duda%20con%20mi%20registro%20de%20repartidor" target="_blank" rel="noopener">WhatsApp</a> o a <a href="mailto:contacto@loentrego.com">contacto@loentrego.com</a></p>
+  </main>
 </div>
 
 <script src="../registro-comun.js?v=1"></script>
-<script src="Scripts-registrorepartidor.js?v=3"></script>
+<script src="Scripts-registrorepartidor.js?v=4"></script>
 </body>
 </html>

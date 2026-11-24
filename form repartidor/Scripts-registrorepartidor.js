@@ -1,4 +1,5 @@
-// ============ Registro de repartidor (3 pasos) ============
+// ============ Registro de repartidor ============
+//  Mismo diseño y funcionamiento que el registro de comercio.
 //  Envía a POST /api/registro/:token:
 //  { rol:"repartidor", nombre, tipo_documento, documento, celular, correo,
 //    vehiculo, placa, municipio, usuario, password, acepta_datos }
@@ -6,13 +7,13 @@
   'use strict';
   const R = window.Registro;
   const $ = (id) => document.getElementById(id);
-  const form = $('registroForm'), btn = $('submitBtn'), atras = $('atras'), aviso = $('aviso');
-  const ruta = document.querySelector('.ruta');
+  const form = $('registroForm'), btn = $('submitBtn'), aviso = $('aviso');
   const VEHICULOS = { moto: 'Moto', bicicleta: 'Bicicleta', carro: 'Carro', a_pie: 'A pie' };
   const MUNICIPIOS = { bogota: 'Bogotá', funza: 'Funza', soacha: 'Soacha' };
-  let paso = 1;
 
   const avisar = (texto, tono = 'info') => { aviso.textContent = texto; aviso.dataset.tono = tono; aviso.hidden = !texto; };
+
+  // Enlace: si venció o ya se usó, el formulario se bloquea
   R.verificar('repartidor').then((v) => {
     if (!v.ok) { avisar(v.motivo, 'error'); form.querySelectorAll('input, select, button').forEach((el) => (el.disabled = true)); }
     if (v.vence) $('link-info').textContent = `Enlace de un solo uso · vence el ${R.fechaCorta(v.vence)}`;
@@ -29,58 +30,32 @@
   const actualizarPlaca = () => {
     $('campo-placa').hidden = !necesitaPlaca();
     $('placa').placeholder = form.vehiculo.value === 'carro' ? 'ABC123' : 'ABC12D';
+    if (!necesitaPlaca()) R.marcar('placa', false);
   };
   form.querySelectorAll('input[name="vehiculo"]').forEach((r) => r.addEventListener('change', actualizarPlaca));
   actualizarPlaca();
 
   const reglas = {
-    1: {
-      nombre: () => R.marcar('nombre', $('nombre').value.trim().split(/\s+/).length < 2),
-      documento: () => R.marcar('documento', !/^[0-9A-Za-z]{5,15}$/.test($('documento').value)),
-      celular: () => R.marcar('celular', !R.celularOk($('celular').value)),
-      correo: () => R.marcar('correo', !R.correoOk($('correo').value)),
-    },
-    2: {
-      placa: () => R.marcar('placa', necesitaPlaca() && !/^[A-Z]{3}\d{2}[A-Z0-9]$/.test($('placa').value)),
-    },
-    3: {
-      usuario: () => R.marcar('usuario', !R.usuarioOk($('usuario').value)),
-      password: () => R.marcar('password', $('password').value.length < 8),
-      datos: () => R.marcar('datos', !$('datos').checked),
-    },
+    nombre: () => R.marcar('nombre', $('nombre').value.trim().split(/\s+/).length < 2),
+    documento: () => R.marcar('documento', !/^[0-9A-Za-z]{5,15}$/.test($('documento').value)),
+    celular: () => R.marcar('celular', !R.celularOk($('celular').value)),
+    correo: () => R.marcar('correo', !R.correoOk($('correo').value)),
+    placa: () => R.marcar('placa', necesitaPlaca() && !/^[A-Z]{3}\d{2}[A-Z0-9]$/.test($('placa').value)),
+    usuario: () => R.marcar('usuario', !R.usuarioOk($('usuario').value)),
+    password: () => R.marcar('password', $('password').value.length < 8),
+    datos: () => R.marcar('datos', !$('datos').checked),
   };
-  Object.values(reglas).forEach((grupo) => Object.keys(grupo).forEach((id) => {
+  Object.keys(reglas).forEach((id) => {
     const el = $(id);
-    el.addEventListener('blur', () => { if (el.value) grupo[id](); });
-    el.addEventListener('input', () => { if (el.classList.contains('invalid')) grupo[id](); });
-    el.addEventListener('change', () => { if (el.type === 'checkbox') grupo[id](); });
-  }));
-
-  function ir(n, desplazar = true) {
-    paso = n;
-    form.querySelectorAll('.paso').forEach((s) => (s.hidden = Number(s.dataset.paso) !== n));
-    ruta.querySelectorAll('.parada').forEach((p) => {
-      const k = Number(p.dataset.paso);
-      p.classList.toggle('hecha', k < n);
-      p.toggleAttribute('aria-current', k === n);
-      if (k === n) p.setAttribute('aria-current', 'step');
-    });
-    ruta.style.setProperty('--p', (n - 1) / 2);
-    atras.hidden = n === 1;
-    btn.querySelector('span').textContent = n === 3 ? 'Crear mi cuenta' : 'Siguiente';
-    const primero = form.querySelector(`.paso[data-paso="${n}"] input:not([type=radio]), .paso[data-paso="${n}"] .veh input:checked`);
-    if (desplazar) {
-      primero?.focus({ preventScroll: true });
-      document.querySelector('.card').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-  atras.addEventListener('click', () => ir(paso - 1));
+    el.addEventListener('blur', () => { if (el.value) reglas[id](); });
+    el.addEventListener('input', () => { if (el.classList.contains('invalid')) reglas[id](); });
+    el.addEventListener('change', () => { if (el.type === 'checkbox') reglas[id](); });
+  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const ok = Object.values(reglas[paso]).map((f) => f()).every(Boolean);
-    if (!ok) { form.querySelector(`.paso[data-paso="${paso}"] .invalid`)?.focus(); return; }
-    if (paso < 3) { ir(paso + 1); return; }
+    const ok = Object.values(reglas).map((f) => f()).every(Boolean);
+    if (!ok) { form.querySelector('.invalid')?.focus(); return; }
 
     const datos = {
       rol: 'repartidor',
@@ -100,25 +75,20 @@
     btn.disabled = true; btn.querySelector('span').textContent = 'Creando cuenta…';
     const r = await R.enviar(datos);
     if (!r.ok) {
+      Object.entries(r.campos || {}).forEach(([id, txt]) => R.marcar(id, true, txt));
       avisar(r.mensaje, 'error');
-      const campos = Object.keys(r.campos || {});
-      campos.forEach((id) => R.marcar(id, true, r.campos[id]));
-      // Si el error es de un paso anterior, vuelve a ese paso
-      const pasoErr = [1, 2, 3].find((n) => campos.some((c) => c in reglas[n]));
-      if (pasoErr && pasoErr !== paso) ir(pasoErr);
-      btn.disabled = false; btn.querySelector('span').textContent = paso === 3 ? 'Crear mi cuenta' : 'Siguiente';
+      btn.disabled = false; btn.querySelector('span').textContent = 'Crear mi cuenta';
+      form.querySelector('.invalid')?.focus();
       return;
     }
 
     $('sum-nombre').textContent = datos.nombre;
     $('sum-vehiculo').textContent = VEHICULOS[datos.vehiculo] + (datos.placa ? ` · ${datos.placa}` : '');
     $('sum-zona').textContent = MUNICIPIOS[datos.municipio];
+    $('sum-contacto').textContent = `${R.formatoCelular(datos.celular)} · ${datos.correo}`;
     $('sum-usuario').textContent = datos.usuario;
-    ruta.querySelectorAll('.parada').forEach((p) => p.classList.add('hecha'));
-    ruta.style.setProperty('--p', 1);
     form.hidden = true;
     $('successState').hidden = false;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-
-  ir(1, false);
 })();
