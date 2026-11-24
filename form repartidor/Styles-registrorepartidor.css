@@ -167,3 +167,32 @@ select.input option { background: var(--panel); }
   .card { padding: 1.1rem; border-radius: 24px; }
   .row-doc { grid-template-columns: 100px 1fr; }
 }
+
+/* =====================================================================
+   Tema claro automático (sigue al celular o al computador)
+   Sigue siendo "Noche" en estructura: tarjeta por pasos con la ruta,
+   ahora sobre lavanda con la tarjeta índigo profundo como protagonista.
+   ===================================================================== */
+@media (prefers-color-scheme: light) {
+  :root {
+    --text: #17104A;
+    --text-2: #4A4580;
+    --muted: #6E6A99;
+    --line: #DFDAF1;
+    --fail: #D63A4C;
+    color-scheme: light;
+  }
+  body { background: #ECE9F8; }
+  .tag { border-color: #D2CCEC; background: #fff; }
+  .intro-list li::before { background: #ECE9F8; border-color: #3422A8; }
+  .intro-list { border-left-color: rgba(52, 34, 168, 0.35); }
+  .intro h1 span { color: #3422A8; }
+  .logo { filter: none; }
+  .help a { color: #3422A8; }
+
+  /* La tarjeta se queda oscura: así el registro del repartidor no se parece al del comercio */
+  .card { --text: #F4F2FF; --text-2: #B9B2E8; --muted: #8C85C2; --line: rgba(255, 255, 255, 0.12); --fail: #FF6B83;
+    color: var(--text); background: linear-gradient(180deg, #2A1C9A 0%, #1B1370 100%); border-color: transparent; box-shadow: 0 30px 60px -28px rgba(27, 19, 112, 0.55); }
+  .card .punto { background: #1B1370; }
+  .card .input::placeholder { color: #8F88C4; }
+}

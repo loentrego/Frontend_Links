@@ -1,91 +1,123 @@
 /* =====================================================================
-   LoEntrego · Página de enlaces
-   Una columna para celular: la ruta con el cometa arriba, el isotipo,
-   el botón de WhatsApp destacado en lima y los demás en vidrio.
+   LoEntrego · Página de enlaces — "La guía y su ruta"
+   La guía (etiqueta de envío) arriba, el selector de perfil y las
+   paradas sobre una ruta vertical que el cometa recorre al desplazar.
    ===================================================================== */
 :root {
   --azul: #3422A8;
   --azul-oscuro: #1B1370;
   --noche: #120C52;
+  --noche-2: #0B0826;
   --lima: #B5DB2E;
   --lima-hover: #C3E64A;
   --tinta: #12092E;
-  --naranja: #FF8A1F;
+  --mov: #4F8DFF;
   --text: #FFFFFF;
   --text-2: #CFC8F7;
+  --muted: #9A94C6;
   --glass: rgba(255, 255, 255, 0.07);
-  --glass-hover: rgba(255, 255, 255, 0.12);
+  --glass-2: rgba(255, 255, 255, 0.12);
   --line: rgba(255, 255, 255, 0.14);
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --x-ruta: 22px;          /* dónde va la línea de la ruta */
   color-scheme: dark;
 }
 [hidden] { display: none !important; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 img, svg { display: block; }
 button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
-html { background: var(--noche); }
-body { min-height: 100dvh; font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: linear-gradient(180deg, var(--azul) 0%, var(--azul-oscuro) 38%, var(--noche) 100%); -webkit-font-smoothing: antialiased; }
+html { background: var(--noche-2); }
+body { min-height: 100dvh; font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: linear-gradient(180deg, var(--azul-oscuro) 0%, var(--noche) 35%, var(--noche-2) 100%); -webkit-font-smoothing: antialiased; }
 :where(a, button):focus-visible { outline: 2.5px solid var(--lima); outline-offset: 3px; }
 
-.col { display: flex; flex-direction: column; gap: 1.5rem; width: min(480px, 100%); min-height: 100dvh; margin: 0 auto; padding: 0 1.1rem 1.5rem; }
+.col { display: flex; flex-direction: column; gap: 1.5rem; width: min(480px, 100%); min-height: 100dvh; margin: 0 auto; padding: 1.25rem 1.1rem 1.5rem; }
 
-/* ---------- Cabecera ---------- */
-.head { position: relative; display: flex; flex-direction: column; align-items: center; padding-top: 4.25rem; text-align: center; }
-.ruta { position: absolute; top: 0; left: -1.1rem; right: -1.1rem; width: calc(100% + 2.2rem); height: 150px; overflow: visible; }
-.r-linea { fill: none; stroke: rgba(255, 255, 255, 0.25); stroke-width: 2; stroke-dasharray: 2 9; stroke-linecap: round; }
-.r-cometa, .r-glow { fill: none; stroke: var(--lima); stroke-linecap: round; stroke-dasharray: 14 120; stroke-dashoffset: 14; animation: cometa 3.2s linear 0.4s infinite; }
-.r-cometa { stroke-width: 3; }
-.r-glow { stroke-width: 10; opacity: 0.18; }
-.r-parada { fill: var(--noche); stroke: var(--lima); stroke-width: 2; }
-.avatar { position: relative; z-index: 1; display: grid; place-items: center; width: 104px; height: 104px; border-radius: 50%; background: linear-gradient(150deg, var(--azul), var(--azul-oscuro)); border: 3px solid var(--lima); box-shadow: 0 0 0 8px rgba(181, 219, 46, 0.14), 0 20px 40px -18px rgba(0, 0, 0, 0.6); animation: aparecer 0.6s var(--ease) both; }
-.avatar img { width: 58%; height: auto; }
-.head h1 { margin-top: 1.1rem; animation: aparecer 0.6s var(--ease) 0.08s both; }
-.wordmark { width: 180px; height: auto; }
-.bio { max-width: 34ch; margin-top: 0.85rem; font-size: 0.9375rem; line-height: 1.55; color: var(--text-2); animation: aparecer 0.6s var(--ease) 0.14s both; }
-.zona { display: inline-flex; align-items: center; gap: 8px; margin-top: 0.9rem; padding: 6px 14px; border-radius: 999px; background: var(--glass); border: 1px solid var(--line); font-size: 0.8125rem; font-weight: 600; animation: aparecer 0.6s var(--ease) 0.2s both; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lima); box-shadow: 0 0 0 4px rgba(181, 219, 46, 0.2); animation: latido 2s ease-in-out infinite; }
-.compartir { position: absolute; top: 1rem; right: 0; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--glass); border: 1px solid var(--line); transition: background 0.15s var(--ease); }
-.compartir:hover { background: var(--glass-hover); }
+/* ---------- La guía ---------- */
+.guia { position: relative; padding: 1.1rem 1.15rem 0; border-radius: 22px; background: linear-gradient(150deg, var(--azul) 0%, var(--azul-oscuro) 100%); border: 1px solid rgba(255, 255, 255, 0.16); box-shadow: 0 28px 50px -26px rgba(0, 0, 0, 0.8); overflow: hidden; animation: llegar 0.7s var(--ease) both; }
+.guia-top { display: flex; align-items: center; justify-content: space-between; }
+.guia-logo { width: 150px; height: auto; }
+.compartir { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--glass-2); transition: background 0.15s var(--ease); }
+.compartir:hover { background: rgba(255, 255, 255, 0.2); }
 .compartir svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.guia-frase { margin-top: 0.9rem; font-family: 'Outfit', sans-serif; font-size: 1.375rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+.guia-datos { display: grid; grid-template-columns: auto 1fr auto; align-items: end; gap: 10px; margin-top: 1rem; padding-top: 0.85rem; border-top: 2px dashed rgba(255, 255, 255, 0.22); }
+.guia-datos dt { font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.guia-datos dd { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600; }
+.guia-datos > div:last-child { text-align: right; }
+.flecha svg { width: 100%; height: 12px; fill: none; stroke: var(--lima); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 3 4; animation: marcha 1.2s linear infinite; }
+.guia-pie { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 0.9rem; }
+.estado { display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px; border-radius: 999px; background: var(--lima); color: var(--tinta); font-size: 0.75rem; font-weight: 700; }
+.estado i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: latido 1.6s ease-in-out infinite; }
+.zona { font-size: 0.75rem; font-weight: 600; color: var(--text-2); }
+/* Código de barras: rayas de distintos anchos con CSS */
+.barras { position: relative; height: 54px; margin: 1rem -1.15rem 0; padding: 8px 1.15rem 0; background: #fff;
+  background-image: repeating-linear-gradient(90deg, var(--tinta) 0 2px, transparent 2px 4px, var(--tinta) 4px 5px, transparent 5px 8px, var(--tinta) 8px 11px, transparent 11px 12px, var(--tinta) 12px 13px, transparent 13px 17px);
+  background-size: calc(100% - 2.3rem) 30px; background-position: 1.15rem 8px; background-repeat: no-repeat; }
+.codigo { position: absolute; left: 0; right: 0; bottom: 3px; font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.35em; text-align: center; color: var(--tinta); }
+.perfora { position: absolute; left: -9px; right: -9px; bottom: 50px; height: 18px; background: radial-gradient(circle at 9px 9px, var(--noche) 8px, transparent 8.5px) left / 50% 100% no-repeat, radial-gradient(circle at calc(100% - 9px) 9px, var(--noche) 8px, transparent 8.5px) right / 50% 100% no-repeat; }
 
-/* ---------- Enlaces ---------- */
-.enlaces { display: flex; flex-direction: column; gap: 0.7rem; }
-.enlace { display: flex; align-items: center; gap: 0.9rem; min-height: 68px; padding: 0.7rem 0.9rem 0.7rem 0.7rem; border-radius: 20px; background: var(--glass); border: 1px solid var(--line); color: var(--text); text-decoration: none; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: transform 0.18s var(--ease), background 0.18s var(--ease), border-color 0.18s var(--ease); animation: aparecer 0.5s var(--ease) calc(0.25s + var(--i) * 0.06s) both; }
-.enlace:hover { transform: translateY(-2px); background: var(--glass-hover); border-color: rgba(181, 219, 46, 0.45); }
-.enlace:active { transform: scale(0.985); }
-.e-ico { display: grid; place-items: center; width: 46px; height: 46px; flex-shrink: 0; border-radius: 14px; background: rgba(255, 255, 255, 0.1); }
-.e-ico svg, .e-flecha svg, .red svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
-.e-txt { flex: 1; min-width: 0; text-align: left; }
-.e-txt b { display: block; font-family: 'Outfit', sans-serif; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
-.e-txt small { display: block; font-size: 0.8125rem; color: var(--text-2); }
-.e-flecha { display: grid; place-items: center; width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%; color: var(--text-2); transition: transform 0.2s var(--ease), color 0.2s var(--ease); }
-.e-flecha svg { width: 18px; height: 18px; stroke-width: 2.2; }
-.enlace:hover .e-flecha { transform: translate(2px, -2px); color: var(--lima); }
+/* ---------- ¿Quién eres? ---------- */
+.quien h2 { margin-bottom: 0.6rem; font-family: 'Outfit', sans-serif; font-size: 1.125rem; font-weight: 600; }
+.perfiles { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); }
+.perfiles button { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0.6rem 0.25rem; border-radius: 12px; font-size: 0.8125rem; font-weight: 600; color: var(--text-2); transition: color 0.2s var(--ease); }
+.perfiles button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.perfiles button[aria-selected="true"] { color: var(--tinta); }
+.perfil-luz { position: absolute; z-index: 0; top: 4px; bottom: 4px; left: 4px; border-radius: 12px; background: var(--lima); box-shadow: 0 8px 20px -8px rgba(181, 219, 46, 0.7); transition: transform 0.35s var(--ease), width 0.35s var(--ease); }
 
-.enlace.destacado { min-height: 78px; background: var(--lima); border-color: transparent; color: var(--tinta); box-shadow: 0 18px 36px -16px rgba(181, 219, 46, 0.65); }
-.enlace.destacado:hover { background: var(--lima-hover); }
-.enlace.destacado .e-ico { background: var(--tinta); color: var(--lima); }
-.enlace.destacado .e-txt b { font-size: 1.1875rem; font-weight: 700; }
-.enlace.destacado .e-txt small { color: rgba(18, 9, 46, 0.7); }
-.enlace.destacado .e-flecha { background: rgba(18, 9, 46, 0.1); color: var(--tinta); }
+/* ---------- La ruta ---------- */
+.ruta { --y: 0px; position: relative; padding-left: calc(var(--x-ruta) * 2 + 6px); }
+.ruta-linea { position: absolute; left: var(--x-ruta); top: 28px; bottom: 28px; width: 2px; background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0 4px, transparent 4px 10px); }
+.ruta-hecha { position: absolute; left: 0; top: 0; width: 2px; height: calc(var(--y) - 28px); max-height: 100%; background: var(--lima); }
+.cometa { position: absolute; left: 50%; top: calc(var(--y) - 28px); width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--lima); box-shadow: 0 0 0 5px rgba(181, 219, 46, 0.18), 0 -10px 10px -2px rgba(181, 219, 46, 0.5), 0 -22px 14px -6px rgba(181, 219, 46, 0.25); }
+.paradas { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; transition: opacity 0.18s var(--ease), transform 0.18s var(--ease); }
+.paradas.saliendo { opacity: 0; transform: translateY(6px); }
+.parada { position: relative; animation: llegar 0.45s var(--ease) calc(var(--i) * 0.07s) both; }
+.nodo { position: absolute; left: calc(-1 * (var(--x-ruta) + 6px) - 7px); top: 50%; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%; background: var(--noche); border: 2px solid rgba(255, 255, 255, 0.35); transition: all 0.3s var(--ease); }
+.pasada > .nodo, .pasada .nodo { border-color: var(--lima); background: var(--lima); box-shadow: 0 0 0 5px rgba(181, 219, 46, 0.16); }
 
-/* ---------- Redes ---------- */
-.redes { display: flex; justify-content: center; gap: 0.6rem; }
-.red { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); color: var(--text); transition: transform 0.18s var(--ease), background 0.18s var(--ease), color 0.18s var(--ease); }
+.tarjeta { display: flex; align-items: center; gap: 0.85rem; padding: 0.8rem 0.85rem 0.8rem 0.75rem; border-radius: 18px; background: var(--glass); border: 1px solid var(--line); color: var(--text); text-decoration: none; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: transform 0.18s var(--ease), background 0.18s var(--ease), border-color 0.18s var(--ease); }
+.tarjeta:hover { transform: translateX(4px); background: var(--glass-2); border-color: rgba(181, 219, 46, 0.45); }
+.tarjeta:active { transform: scale(0.985); }
+.t-ico { display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: 13px; background: rgba(255, 255, 255, 0.1); }
+.t-ico svg, .t-flecha svg, .red svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.t-txt { flex: 1; min-width: 0; }
+.t-num { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.625rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.t-num em { font-style: normal; color: var(--lima); }
+.t-txt b { display: block; font-family: 'Outfit', sans-serif; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
+.t-txt > span { display: block; font-size: 0.8125rem; color: var(--text-2); }
+.t-flecha { display: grid; place-items: center; width: 30px; height: 30px; flex-shrink: 0; color: var(--text-2); transition: transform 0.2s var(--ease), color 0.2s var(--ease); }
+.t-flecha svg { width: 17px; height: 17px; stroke-width: 2.2; }
+.tarjeta:hover .t-flecha { transform: translate(2px, -2px); color: var(--lima); }
+
+.destacada .tarjeta { padding-block: 1rem; background: var(--lima); border-color: transparent; color: var(--tinta); box-shadow: 0 18px 36px -16px rgba(181, 219, 46, 0.6); }
+.destacada .tarjeta:hover { background: var(--lima-hover); }
+.destacada .t-ico { background: var(--tinta); color: var(--lima); }
+.destacada .t-num, .destacada .t-txt > span { color: rgba(18, 9, 46, 0.7); }
+.destacada .t-num em { color: var(--tinta); font-weight: 700; }
+.destacada .t-txt b { font-size: 1.1875rem; font-weight: 700; }
+.destacada .t-flecha { border-radius: 50%; background: rgba(18, 9, 46, 0.1); color: var(--tinta); }
+
+/* Parada final: entregado + redes */
+.entregado { position: relative; display: flex; margin-top: 1.25rem; }
+.nodo-fin { display: grid; place-items: center; width: 26px; height: 26px; margin-top: -13px; left: calc(-1 * (var(--x-ruta) + 6px) - 12px); top: 22px; }
+.nodo-fin svg { width: 14px; height: 14px; fill: none; stroke: var(--tinta); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transition: opacity 0.3s var(--ease); }
+.entregado.pasada .nodo-fin svg { opacity: 1; }
+.entregado-txt b { display: block; font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 700; }
+.entregado-txt small { display: block; font-size: 0.8125rem; color: var(--text-2); }
+.redes { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+.red { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: var(--glass); border: 1px solid var(--line); color: var(--text); transition: transform 0.18s var(--ease), background 0.18s var(--ease), color 0.18s var(--ease); }
 .red:hover { transform: translateY(-3px); background: var(--lima); color: var(--tinta); }
 
-.pie { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: auto; font-size: 0.75rem; color: var(--text-2); opacity: 0.8; }
+.pie { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: auto; padding-top: 0.5rem; font-size: 0.75rem; color: var(--muted); }
 .iso { width: 16px; height: 16px; background: var(--lima); -webkit-mask: url("img/isotipo-blanco.png") center / contain no-repeat; mask: url("img/isotipo-blanco.png") center / contain no-repeat; }
-
 .toast { position: fixed; left: 50%; bottom: 1.5rem; z-index: 10; padding: 0.6rem 1.1rem; border-radius: 999px; background: var(--lima); color: var(--tinta); font-size: 0.875rem; font-weight: 700; translate: -50% 20px; opacity: 0; transition: all 0.2s var(--ease); pointer-events: none; }
 .toast[data-show] { translate: -50% 0; opacity: 1; }
 
-@keyframes cometa { 0% { stroke-dashoffset: 14; } 70%, 100% { stroke-dashoffset: -100; } }
-@keyframes aparecer { from { opacity: 0; transform: translateY(12px); } }
-@keyframes latido { 50% { opacity: 0.45; } }
+@keyframes llegar { from { opacity: 0; transform: translateY(14px); } }
+@keyframes latido { 50% { opacity: 0.35; } }
+@keyframes marcha { to { stroke-dashoffset: -14; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
-
-/* Pantallas grandes: la columna flota sobre el fondo, centrada */
-@media (min-width: 700px) {
-  .col { padding-top: 2rem; padding-bottom: 2rem; }
-}
+@media (min-width: 700px) { .col { padding-top: 2.5rem; padding-bottom: 2.5rem; } }
+/* El cometa se desliza suave entre posiciones (y llega solo al final si la página no se desplaza) */
+@property --y { syntax: '<length>'; inherits: true; initial-value: 0px; }
+.ruta { transition: --y 0.25s var(--ease); }

@@ -4,9 +4,9 @@ Páginas sueltas que se comparten por enlace.
 
 | Carpeta | Qué es | Estilo |
 |---|---|---|
-| `form comercio/` | Registro de comercio con el enlace de un solo uso que genera el panel admin. | "Día": claro, panel azul con beneficios y formulario en 3 bloques. |
-| `form repartidor/` | Registro de repartidor con el enlace de un solo uso. | "Noche": oscuro, 3 pasos marcados como una ruta con cometa, vehículos en tarjetas y placa colombiana. |
-| `links/` | Página de enlaces tipo Linktree (para la bio de Instagram, TikTok, etc.). | Columna para celular con la ruta y el cometa de la marca. |
+| `form comercio/` | Registro de comercio con el enlace de un solo uso que genera el panel admin. | "Día": panel azul con beneficios y formulario en 3 bloques. Tema claro u oscuro automático. |
+| `form repartidor/` | Registro de repartidor con el enlace de un solo uso. | "Noche": 3 pasos marcados como una ruta con cometa, vehículos en tarjetas y placa colombiana. Tema claro u oscuro automático. |
+| `links/` | Página de enlaces tipo Linktree (para la bio de Instagram, TikTok, etc.). | "La guía y su ruta": una etiqueta de envío arriba, el visitante elige si es comercio, repartidor o cliente, y los enlaces son paradas que el cometa recorre al desplazar. |
 | `registro-comun.js` | Lo que comparten los dos formularios: token, API, validaciones, celular y contraseña. | — |
 
 ## Formularios de registro
@@ -19,7 +19,10 @@ El panel admin (Enlaces) genera la URL con el token: `…/form comercio/?t=TOKEN
 
 ## Página de enlaces
 
-Para cambiar, agregar o quitar enlaces se edita solo la lista `ENLACES` (y `REDES`) al inicio de `links/script.js`.
+Se puede compartir con un perfil ya elegido: `links/?para=comercio`, `links/?para=repartidor` o `links/?para=cliente`.
+
+
+Para cambiar, agregar o quitar enlaces se editan solo las listas `PERFILES` y `REDES` al inicio de `links/script.js`.
 
 Antes de publicar, revisa estos enlaces, que van de ejemplo:
 

@@ -3,45 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#1B1370">
+<meta name="theme-color" content="#120C52">
 <title>LoEntrego · Enlaces</title>
-<meta name="description" content="LoEntrego: logística de última milla en Bogotá, Funza y Soacha. Escríbenos, envía con nosotros o únete al equipo.">
+<meta name="description" content="LoEntrego: logística de última milla en Bogotá, Funza y Soacha. Envía con nosotros, únete al equipo o sigue tu pedido.">
 <meta property="og:title" content="LoEntrego · Logística de última milla">
 <meta property="og:description" content="Envíos para comercios en Bogotá, Funza y Soacha.">
 <meta property="og:image" content="img/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=1">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=3">
 <link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 </head>
 <body>
 
 <main class="col">
 
-  <!-- Cabecera: la ruta con su cometa, el isotipo y la bio -->
-  <header class="head">
-    <svg class="ruta" viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <path class="r-linea" d="M-10 120 C 70 120, 90 40, 170 46 S 290 120, 410 34"/>
-      <path class="r-glow" pathLength="100" d="M-10 120 C 70 120, 90 40, 170 46 S 290 120, 410 34"/>
-      <path class="r-cometa" pathLength="100" d="M-10 120 C 70 120, 90 40, 170 46 S 290 120, 410 34"/>
-      <circle class="r-parada" cx="170" cy="46" r="4"/>
-      <circle class="r-parada" cx="300" cy="96" r="4"/>
-    </svg>
-    <div class="avatar"><img src="img/isotipo-blanco.png" alt="" width="553" height="544"></div>
-    <h1><img class="wordmark" src="img/loentrego-logo-blanco.png" alt="LoEntrego — Logística de última milla" width="1383" height="374"></h1>
-    <p class="bio">Llevamos los pedidos de tu comercio hasta la puerta de tu cliente, con seguimiento y cobro contraentrega.</p>
-    <p class="zona"><span class="dot" aria-hidden="true"></span>Bogotá · Funza · Soacha</p>
-    <button type="button" class="compartir" id="compartir" aria-label="Compartir esta página">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
-    </button>
+  <!-- ===== La guía de envío: la tarjeta de presentación ===== -->
+  <header class="guia" aria-label="LoEntrego, logística de última milla">
+    <div class="guia-top">
+      <img class="guia-logo" src="img/loentrego-logo-blanco.png" alt="LoEntrego — Logística de última milla" width="1383" height="374">
+      <button type="button" class="compartir" id="compartir" aria-label="Compartir esta página">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+      </button>
+    </div>
+    <p class="guia-frase" id="frase">Llevamos los pedidos de tu comercio hasta la puerta de tu cliente.</p>
+    <dl class="guia-datos">
+      <div><dt>Desde</dt><dd>LoEntrego</dd></div>
+      <div class="flecha" aria-hidden="true"><svg viewBox="0 0 40 12"><path d="M0 6h34M29 1l6 5-6 5"/></svg></div>
+      <div><dt>Para</dt><dd id="para">ti, comercio</dd></div>
+    </dl>
+    <div class="guia-pie">
+      <span class="estado"><i aria-hidden="true"></i>En camino</span>
+      <span class="zona">Bogotá · Funza · Soacha</span>
+    </div>
+    <div class="barras" aria-hidden="true"><span class="codigo" id="codigo">LE-0000</span></div>
+    <span class="perfora" aria-hidden="true"></span>
   </header>
 
-  <!-- Enlaces (se arman en script.js desde la lista ENLACES) -->
-  <nav class="enlaces" id="enlaces" aria-label="Enlaces de LoEntrego"></nav>
+  <!-- ===== ¿Quién eres? ===== -->
+  <section class="quien" aria-labelledby="t-quien">
+    <h2 id="t-quien">¿Quién eres?</h2>
+    <div class="perfiles" role="tablist" aria-label="Elige tu perfil">
+      <button type="button" role="tab" data-perfil="comercio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9.5 12 4l9 5.5V20H3Z"/><path d="M9 20v-6h6v6"/></svg>Comercio</button>
+      <button type="button" role="tab" data-perfil="repartidor"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5h5l3.5-6h3l1.5 6M14 10.5l-1.5-3H10"/></svg>Repartidor</button>
+      <button type="button" role="tab" data-perfil="cliente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>Cliente</button>
+      <span class="perfil-luz" aria-hidden="true"></span>
+    </div>
+  </section>
 
-  <!-- Redes -->
-  <nav class="redes" id="redes" aria-label="Redes sociales"></nav>
+  <!-- ===== La ruta: cada enlace es una parada ===== -->
+  <section class="ruta" id="ruta" aria-live="polite">
+    <div class="ruta-linea" aria-hidden="true"><i class="ruta-hecha"></i><i class="cometa"></i></div>
+    <ol class="paradas" id="paradas"></ol>
+    <div class="entregado">
+      <span class="nodo nodo-fin" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7"/></svg></span>
+      <div class="entregado-txt">
+        <b>Entregado</b>
+        <small>Síguenos para ver la ruta de cada día</small>
+        <nav class="redes" id="redes" aria-label="Redes sociales"></nav>
+      </div>
+    </div>
+  </section>
 
   <footer class="pie">
     <span class="iso" aria-hidden="true"></span>
@@ -50,7 +74,6 @@
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script src="script.js?v=1"></script>
+<script src="script.js?v=5"></script>
 </body>
 </html>
