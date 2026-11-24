@@ -38,7 +38,7 @@
       para: 'ti, que esperas un pedido',
       frase: 'Tu pedido va en camino. Aquí te ayudamos a seguirlo.',
       paradas: [
-        { titulo: '¿Dónde va mi pedido?', detalle: 'Pregúntanos con tu código LE-', etiqueta: 'Seguimiento', url: wa('Hola LoEntrego, quiero saber cómo va mi pedido. Mi código es LE-'), icono: 'caja' },
+        { titulo: '¿Dónde va mi pedido?', detalle: 'Pregúntanos con tu código LOE-', etiqueta: 'Seguimiento', url: wa('Hola LoEntrego, quiero saber cómo va mi pedido. Mi código es LOE-'), icono: 'caja' },
         { titulo: 'Califica tu entrega', detalle: 'Tu opinión en Google nos ayuda', url: 'https://g.page/r/loentrego/review', icono: 'estrella' },
         { titulo: '¿Tienes un negocio?', detalle: 'Envía tus pedidos con nosotros', url: 'https://loentrego.com/Pages/indexunete.html', icono: 'tienda' },
       ],
