@@ -1,88 +1,172 @@
 // =====================================================================
-//  LoEntrego · Página de enlaces
-//  Estilo Linktree: perfil, columna de botones y redes. Una pantalla sin scroll.
-//  Para cambiar, agregar o quitar enlaces solo se editan ENLACES y REDES.
-//    destacado: true → el botón lima (usar en uno solo)
+//  LoEntrego · Página de enlaces: el perfil y la ruta
+//  · Arriba, el perfil: foto con órbita, @loentrego, bio y "En ruta ahora".
+//  · "¿Quién eres?": cambia las paradas según el perfil.
+//  · Cada enlace es una parada; el cometa recorre la ruta en bucle.
+//  · Todo cabe en una pantalla: la página no tiene scroll.
+//  Para compartir un perfil ya elegido:  links/?para=repartidor
+//  Para cambiar enlaces, solo se editan PERFILES y REDES.
 // =====================================================================
 (() => {
   'use strict';
-  const WHATSAPP = '573101234567';
-  const wa = (texto) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`;
+  // Hoy el contacto es por Instagram y Facebook (WhatsApp aún no está activo)
+  const IG_MENSAJE = 'https://ig.me/m/loentrego';
 
-  const ENLACES = [
-    { titulo: 'Escríbenos por WhatsApp', url: wa('Hola LoEntrego, quiero información para enviar mis pedidos.'), icono: 'whatsapp', destacado: true },
-    { titulo: 'Envía tus pedidos con nosotros', url: 'https://loentrego.com/Pages/indexunete.html', icono: 'tienda' },
-    { titulo: 'Quiero ser repartidor', url: wa('Hola LoEntrego, quiero trabajar como repartidor.'), icono: 'moto' },
-    { titulo: '¿Dónde va mi pedido?', url: wa('Hola LoEntrego, quiero saber cómo va mi pedido. Mi código es LOE-'), icono: 'caja' },
-    { titulo: 'Entrar a la app', url: 'https://app.loentrego.com/', icono: 'app' },
-    { titulo: 'Conoce LoEntrego', url: 'https://loentrego.com/', icono: 'ruta' },
-  ];
+  // Paradas de cada perfil (la primera va destacada en lima)
+  const PERFILES = {
+    comercio: {
+      para: 'ti, comercio',
+      frase: 'Llevamos los pedidos de tu comercio hasta la puerta de tu cliente.',
+      paradas: [
+        { titulo: 'Cotiza tu envío', detalle: 'Escríbenos por Instagram', etiqueta: 'Más rápido', url: IG_MENSAJE, icono: 'instagram' },
+        { titulo: 'Registra tu comercio', detalle: 'Déjanos tus datos y te contactamos', url: 'https://loentrego.com/Pages/indexunete.html', icono: 'tienda' },
+        { titulo: 'Cómo funciona', detalle: 'Cobertura, tarifa y pasos', url: 'https://loentrego.com/', icono: 'ruta' },
+        { titulo: 'Entra a la app', detalle: 'Crea y sigue tus pedidos', url: 'https://app.loentrego.com/', icono: 'app' },
+      ],
+    },
+    repartidor: {
+      para: 'ti, repartidor',
+      frase: 'Súbete a la ruta: entregas cerca de ti, con todo claro en la app.',
+      paradas: [
+        { titulo: 'Quiero repartir', detalle: 'Escríbenos por Instagram y te contamos', etiqueta: 'Únete', url: IG_MENSAJE, icono: 'moto' },
+        { titulo: 'Conoce LoEntrego', detalle: 'Dónde operamos y cómo trabajamos', url: 'https://loentrego.com/Pages/indexnosotros.html', icono: 'ruta' },
+        { titulo: 'Entra a la app', detalle: 'Tu ruta del día', url: 'https://app.loentrego.com/', icono: 'app' },
+      ],
+    },
+    cliente: {
+      para: 'ti, que esperas un pedido',
+      frase: 'Tu pedido va en camino. Aquí te ayudamos a seguirlo.',
+      paradas: [
+        { titulo: '¿Dónde va mi pedido?', detalle: 'Escríbenos por Instagram con tu código LOE-', etiqueta: 'Seguimiento', url: IG_MENSAJE, icono: 'caja' },
+        { titulo: 'Califica tu entrega', detalle: 'Tu opinión en Google nos ayuda', url: 'https://g.page/r/loentrego/review', icono: 'estrella' },
+        { titulo: '¿Tienes un negocio?', detalle: 'Envía tus pedidos con nosotros', url: 'https://loentrego.com/Pages/indexunete.html', icono: 'tienda' },
+      ],
+    },
+  };
 
   const REDES = [
-    { nombre: 'WhatsApp', url: wa('Hola LoEntrego'), icono: 'whatsapp' },
     { nombre: 'Instagram', url: 'https://instagram.com/loentrego', icono: 'instagram' },
     { nombre: 'Facebook', url: 'https://facebook.com/loentrego', icono: 'facebook' },
-    { nombre: 'Califícanos en Google', url: 'https://g.page/r/loentrego/review', icono: 'estrella' },
-    { nombre: 'Correo', url: 'mailto:contacto@loentrego.com', icono: 'correo' },
   ];
 
   const ICONOS = {
     whatsapp: '<path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.4Z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1-1.3 2 .9c-.3 1.3-1.4 2-2.7 1.8-3-.5-5.7-3.2-6.2-6.2-.2-1.3.5-2.4 1.8-2.7l.9 2Z"/>',
     tienda: '<path d="M3 9.5 12 4l9 5.5V20H3Z"/><path d="M9 20v-6h6v6"/>',
-    moto: '<circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5h5l3.5-6h3l1.5 6M14 10.5l-1.5-3H10M17 10.5l1-2.5h2.5"/>',
-    caja: '<path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="m3 8 9 5 9-5M12 13v8"/>',
-    app: '<rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/>',
     ruta: '<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/>',
+    moto: '<circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5h5l3.5-6h3l1.5 6M14 10.5l-1.5-3H10M17 10.5l1-2.5h2.5"/>',
+    app: '<rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/>',
+    caja: '<path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="m3 8 9 5 9-5M12 13v8"/>',
     estrella: '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/>',
     instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor"/>',
     facebook: '<path d="M14 21v-7.5h2.6l.4-3H14V8.6c0-.9.3-1.6 1.6-1.6H17V4.3a20 20 0 0 0-2.3-.1C12.4 4.2 11 5.6 11 8.1v2.4H8.5v3H11V21"/>',
+    tiktok: '<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.3 5 4.5"/>',
     correo: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/>',
   };
   const svg = (k) => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONOS[k] || ''}</svg>`;
   const ext = (url) => /^https?:/.test(url) ? ' target="_blank" rel="noopener"' : '';
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const $ = (id) => document.getElementById(id);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Botón tipo Linktree: ícono a la izquierda, texto centrado, menú (⋯) a la derecha para compartir el enlace
-  const toast = $('toast');
-  let t;
-  const avisar = (txt) => { toast.textContent = txt; toast.dataset.show = ''; clearTimeout(t); t = setTimeout(() => delete toast.dataset.show, 1800); };
-
-  $('enlaces').innerHTML = ENLACES.map((e, i) => `
-    <div class="boton${e.destacado ? ' destacado' : ''}" style="--i:${i}">
-      <a href="${esc(e.url)}"${ext(e.url)}><span class="b-ico">${svg(e.icono)}</span><span class="b-txt">${esc(e.titulo)}</span>${e.destacado ? '<span class="b-brillo" aria-hidden="true"></span>' : ''}</a>
-      <button type="button" class="b-mas" data-url="${esc(e.url)}" aria-label="Compartir: ${esc(e.titulo)}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button>
-    </div>`).join('');
-  document.getElementById('enlaces').addEventListener('click', async (ev) => {
-    const b = ev.target.closest('.b-mas'); if (!b) return;
-    const url = b.dataset.url;
-    if (navigator.share) { try { await navigator.share({ url }); } catch { /* cancelado */ } return; }
-    try { await navigator.clipboard.writeText(url); avisar('Enlace copiado'); } catch { avisar(url); }
-  });
 
   $('redes').innerHTML = REDES.map((r) => `<a class="red" href="${esc(r.url)}"${ext(r.url)} aria-label="${esc(r.nombre)}" title="${esc(r.nombre)}">${svg(r.icono)}</a>`).join('');
 
+  // ---------- Perfil ----------
+  const botones = [...document.querySelectorAll('[data-perfil]')];
+  const luz = document.querySelector('.perfil-luz');
+  // El resaltado lima se mueve debajo del perfil elegido
+  function posicionarLuz() {
+    const b = botones.find((x) => x.getAttribute('aria-selected') === 'true');
+    if (b) { luz.style.width = b.offsetWidth + 'px'; luz.style.transform = `translateX(${b.offsetLeft - 4}px)`; }
+  }
+  function elegir(perfil, { animar = true, guardar = true } = {}) {
+    if (!PERFILES[perfil]) perfil = 'comercio';
+    const p = PERFILES[perfil];
+    botones.forEach((b) => {
+      const act = b.dataset.perfil === perfil;
+      b.setAttribute('aria-selected', String(act));
+      b.tabIndex = act ? 0 : -1;
+    });
+    posicionarLuz();
+    $('frase').textContent = p.frase;
+    const lista = $('paradas');
+    const pintar = () => {
+      lista.innerHTML = p.paradas.map((e, i) => `
+        <li class="parada${i === 0 ? ' destacada' : ''}" style="--i:${i}">
+          <span class="nodo" aria-hidden="true"></span>
+          <a class="tarjeta" href="${esc(e.url)}"${ext(e.url)}>
+            <span class="t-ico">${svg(e.icono)}</span>
+            <span class="t-txt">
+              <small class="t-num">Parada ${i + 1}${e.etiqueta ? ` · <em>${esc(e.etiqueta)}</em>` : ''}</small>
+              <b>${esc(e.titulo)}</b>
+              <span>${esc(e.detalle)}</span>
+            </span>
+            <span class="t-flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </a>
+        </li>`).join('');
+      lista.classList.remove('saliendo');
+      encajar?.(); medir();
+    };
+    if (animar && !reduce) { lista.classList.add('saliendo'); setTimeout(pintar, 180); } else pintar();
+    if (guardar) { const u = new URL(location); u.searchParams.set('para', perfil); history.replaceState(null, '', u); }
+  }
+  botones.forEach((b) => b.addEventListener('click', () => elegir(b.dataset.perfil)));
+  // Flechas del teclado entre perfiles
+  document.querySelector('.perfiles').addEventListener('keydown', (e) => {
+    const i = botones.findIndex((b) => b.getAttribute('aria-selected') === 'true');
+    const n = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!n) return;
+    const sig = botones[(i + n + botones.length) % botones.length];
+    sig.focus(); elegir(sig.dataset.perfil);
+  });
+
+  // ---------- El cometa recorre la ruta solo (la página no tiene scroll) ----------
+  const ruta = $('ruta');
+  let nodos = [], t0 = performance.now();
+  function medir() {
+    const top0 = ruta.getBoundingClientRect().top;
+    nodos = [...ruta.querySelectorAll('.nodo')].map((n) => { const b = n.getBoundingClientRect(); return { el: n.closest('.parada, .entregado'), y: b.top + b.height / 2 - top0 }; });
+    t0 = performance.now();
+  }
+  // Ciclo de 5 s: baja 3 s de la primera parada a "Entregado", espera 2 s y vuelve a empezar
+  function mover(ahora) {
+    if (nodos.length) {
+      const ini = nodos[0].y, fin = nodos[nodos.length - 1].y;
+      const k = reduce ? 1 : Math.min(1, ((ahora - t0) % 5000) / 3000);
+      const e = 1 - Math.pow(1 - k, 3);
+      const y = ini + (fin - ini) * e;
+      ruta.style.setProperty('--y', y + 'px');
+      nodos.forEach((n) => n.el?.classList.toggle('pasada', n.y <= y + 2));
+    }
+    if (!reduce) requestAnimationFrame(mover);
+  }
   // ---------- Nunca scroll: si no cabe, se compacta por niveles y al final se escala ----------
   const col = document.querySelector('.col');
   function encajar() {
     const root = document.documentElement;
-    root.classList.remove('c1', 'c2', 'c3');
+    root.classList.remove('c1', 'c2', 'c3', 'c4');
     col.style.transform = ''; col.style.height = '';
     const alto = window.innerHeight;
     const sobra = () => col.scrollHeight - alto;
-    for (const nivel of ['c1', 'c2', 'c3']) { if (sobra() <= 0) break; root.classList.add(nivel); }
-    if (sobra() > 0) {
+    for (const nivel of ['c1', 'c2', 'c3', 'c4']) { if (sobra() <= 0) break; root.classList.add(nivel); }
+    if (sobra() > 0) {                       // último recurso: escalar todo para que quepa
       const k = alto / col.scrollHeight;
       col.style.height = (alto / k) + 'px';
       col.style.transform = `scale(${k})`;
     }
   }
-  addEventListener('resize', encajar);
-  addEventListener('load', encajar);
-  document.fonts?.ready.then(encajar);
-  encajar();
+  addEventListener('resize', () => { encajar(); posicionarLuz(); medir(); });
+  addEventListener('load', () => { encajar(); medir(); });
+  document.fonts?.ready.then(() => { encajar(); medir(); });
+  addEventListener('load', medir);
+  requestAnimationFrame(mover);
+
+  elegir(new URLSearchParams(location.search).get('para') || 'comercio', { animar: false, guardar: false });
 
   // ---------- Compartir ----------
+  const toast = $('toast');
+  let t;
+  const avisar = (txt) => { toast.textContent = txt; toast.dataset.show = ''; clearTimeout(t); t = setTimeout(() => delete toast.dataset.show, 1800); };
   $('compartir').addEventListener('click', async () => {
     const datos = { title: 'LoEntrego', text: 'Logística de última milla en Bogotá, Funza y Soacha', url: location.href };
     if (navigator.share) { try { await navigator.share(datos); } catch { /* cancelado */ } return; }
