@@ -1,6 +1,7 @@
 // =====================================================================
-//  LoEntrego · Página de enlaces: una guía de envío con su ruta
-//  · Arriba, la guía (como la etiqueta de un paquete).
+//  LoEntrego · Página de enlaces: la ciudad en vivo y la ruta
+//  · Arriba, una mini ciudad con la ruta y el cometa (la etiqueta de envío
+//    vive ahora en Branding_LoEntrego/etiquetas para imprimir).
 //  · "¿Quién eres?": cambia las paradas según el perfil.
 //  · Cada enlace es una parada; el cometa baja por la ruta al desplazar.
 //  Para compartir un perfil ya elegido:  links/?para=repartidor
@@ -69,9 +70,6 @@
   const $ = (id) => document.getElementById(id);
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Código de guía: LE- + 4 dígitos que cambian cada día (como un envío nuevo)
-  const hoy = new Date();
-  $('codigo').textContent = 'LE-' + String(((hoy.getFullYear() * 372 + hoy.getMonth() * 31 + hoy.getDate()) * 7919) % 9000 + 1000);
 
   $('redes').innerHTML = REDES.map((r) => `<a class="red" href="${esc(r.url)}"${ext(r.url)} aria-label="${esc(r.nombre)}" title="${esc(r.nombre)}">${svg(r.icono)}</a>`).join('');
 
@@ -92,7 +90,6 @@
       b.tabIndex = act ? 0 : -1;
     });
     posicionarLuz();
-    $('para').textContent = p.para;
     $('frase').textContent = p.frase;
     const lista = $('paradas');
     const pintar = () => {

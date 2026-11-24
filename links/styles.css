@@ -32,29 +32,30 @@ body { min-height: 100dvh; font-family: 'Inter', system-ui, sans-serif; color: v
 
 .col { display: flex; flex-direction: column; gap: 1.5rem; width: min(480px, 100%); min-height: 100dvh; margin: 0 auto; padding: 1.25rem 1.1rem 1.5rem; }
 
-/* ---------- La guía ---------- */
-.guia { position: relative; padding: 1.1rem 1.15rem 0; border-radius: 22px; background: linear-gradient(150deg, var(--azul) 0%, var(--azul-oscuro) 100%); border: 1px solid rgba(255, 255, 255, 0.16); box-shadow: 0 28px 50px -26px rgba(0, 0, 0, 0.8); overflow: hidden; animation: llegar 0.7s var(--ease) both; }
-.guia-top { display: flex; align-items: center; justify-content: space-between; }
-.guia-logo { width: 150px; height: auto; }
-.compartir { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--glass-2); transition: background 0.15s var(--ease); }
+/* ---------- Cabecera: la ciudad en vivo ---------- */
+.cab { position: relative; margin: -1.25rem -1.1rem 0; padding: 5.25rem 1.1rem 0; text-align: center; }
+.ciudad { position: absolute; inset: 0 0 auto; height: 220px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 55%, transparent 100%); }
+.ciudad svg { width: 100%; height: 100%; }
+.calles path { fill: none; stroke: rgba(255, 255, 255, 0.10); stroke-width: 1; stroke-dasharray: 2 6; stroke-linecap: round; }
+.avenidas path { fill: none; stroke: rgba(255, 255, 255, 0.26); stroke-width: 2.2; stroke-dasharray: 6 7; stroke-linecap: round; }
+.cometa-ruta { fill: none; stroke: var(--lima); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 12 120; stroke-dashoffset: 12; filter: drop-shadow(0 0 4px rgba(181, 219, 46, 0.8)); animation: cometa 4.5s linear infinite; }
+.cometa-ruta.lento { animation-duration: 6.5s; animation-delay: 1.4s; }
+.nodos circle { fill: var(--noche); stroke: var(--lima); stroke-width: 2; }
+.ping circle { fill: none; stroke: var(--lima); stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: ping 2.6s ease-out infinite; }
+.ping.p2 circle { animation-delay: 1.3s; }
+.cab-in { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+.avatar { display: grid; place-items: center; width: 96px; height: 96px; border-radius: 28px; background: linear-gradient(150deg, var(--azul), var(--azul-oscuro)); border: 2px solid rgba(255, 255, 255, 0.18); box-shadow: 0 0 0 6px rgba(181, 219, 46, 0.16), 0 20px 40px -18px rgba(0, 0, 0, 0.7); transform: rotate(-4deg); animation: llegar 0.6s var(--ease) both; }
+.avatar img { width: 56%; height: auto; transform: rotate(4deg); }
+.cab h1 { margin-top: 1.1rem; animation: llegar 0.6s var(--ease) 0.06s both; }
+.wordmark { width: 176px; height: auto; }
+.frase { max-width: 32ch; margin-top: 0.75rem; font-family: 'Outfit', sans-serif; font-size: 1.1875rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; animation: llegar 0.6s var(--ease) 0.12s both; }
+.vivo { display: inline-flex; align-items: center; gap: 8px; margin-top: 0.9rem; padding: 6px 14px; border-radius: 999px; background: var(--glass); border: 1px solid var(--line); font-size: 0.8125rem; color: var(--text-2); animation: llegar 0.6s var(--ease) 0.18s both; }
+.vivo b { color: var(--text); font-weight: 600; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lima); box-shadow: 0 0 0 4px rgba(181, 219, 46, 0.2); animation: latido 1.6s ease-in-out infinite; }
+.compartir { position: absolute; z-index: 2; top: 1rem; right: 1.1rem; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: var(--glass-2); border: 1px solid var(--line); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: background 0.15s var(--ease); }
 .compartir:hover { background: rgba(255, 255, 255, 0.2); }
 .compartir svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.guia-frase { margin-top: 0.9rem; font-family: 'Outfit', sans-serif; font-size: 1.375rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
-.guia-datos { display: grid; grid-template-columns: auto 1fr auto; align-items: end; gap: 10px; margin-top: 1rem; padding-top: 0.85rem; border-top: 2px dashed rgba(255, 255, 255, 0.22); }
-.guia-datos dt { font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-.guia-datos dd { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600; }
-.guia-datos > div:last-child { text-align: right; }
-.flecha svg { width: 100%; height: 12px; fill: none; stroke: var(--lima); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 3 4; animation: marcha 1.2s linear infinite; }
-.guia-pie { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 0.9rem; }
-.estado { display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px; border-radius: 999px; background: var(--lima); color: var(--tinta); font-size: 0.75rem; font-weight: 700; }
-.estado i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: latido 1.6s ease-in-out infinite; }
-.zona { font-size: 0.75rem; font-weight: 600; color: var(--text-2); }
-/* Código de barras: rayas de distintos anchos con CSS */
-.barras { position: relative; height: 54px; margin: 1rem -1.15rem 0; padding: 8px 1.15rem 0; background: #fff;
-  background-image: repeating-linear-gradient(90deg, var(--tinta) 0 2px, transparent 2px 4px, var(--tinta) 4px 5px, transparent 5px 8px, var(--tinta) 8px 11px, transparent 11px 12px, var(--tinta) 12px 13px, transparent 13px 17px);
-  background-size: calc(100% - 2.3rem) 30px; background-position: 1.15rem 8px; background-repeat: no-repeat; }
-.codigo { position: absolute; left: 0; right: 0; bottom: 3px; font-family: 'JetBrains Mono', monospace; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.35em; text-align: center; color: var(--tinta); }
-.perfora { position: absolute; left: -9px; right: -9px; bottom: 50px; height: 18px; background: radial-gradient(circle at 9px 9px, var(--noche) 8px, transparent 8.5px) left / 50% 100% no-repeat, radial-gradient(circle at calc(100% - 9px) 9px, var(--noche) 8px, transparent 8.5px) right / 50% 100% no-repeat; }
 
 /* ---------- ¿Quién eres? ---------- */
 .quien h2 { margin-bottom: 0.6rem; font-family: 'Outfit', sans-serif; font-size: 1.125rem; font-weight: 600; }
@@ -115,7 +116,8 @@ body { min-height: 100dvh; font-family: 'Inter', system-ui, sans-serif; color: v
 
 @keyframes llegar { from { opacity: 0; transform: translateY(14px); } }
 @keyframes latido { 50% { opacity: 0.35; } }
-@keyframes marcha { to { stroke-dashoffset: -14; } }
+@keyframes cometa { 0% { stroke-dashoffset: 12; } 75%, 100% { stroke-dashoffset: -100; } }
+@keyframes ping { 0% { transform: scale(1); opacity: 0.9; } 100% { transform: scale(3.2); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
 @media (min-width: 700px) { .col { padding-top: 2.5rem; padding-bottom: 2.5rem; } }
 /* El cometa se desliza suave entre posiciones (y llega solo al final si la página no se desplaza) */

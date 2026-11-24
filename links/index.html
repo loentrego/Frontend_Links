@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="styles.css?v=4">
 <link rel="icon" href="img/icon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 </head>
@@ -20,26 +20,35 @@
 
 <main class="col">
 
-  <!-- ===== La guía de envío: la tarjeta de presentación ===== -->
-  <header class="guia" aria-label="LoEntrego, logística de última milla">
-    <div class="guia-top">
-      <img class="guia-logo" src="img/loentrego-logo-blanco.png" alt="LoEntrego — Logística de última milla" width="1383" height="374">
-      <button type="button" class="compartir" id="compartir" aria-label="Compartir esta página">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
-      </button>
+  <!-- ===== Cabecera: la ciudad en vivo ===== -->
+  <header class="cab">
+    <div class="ciudad" aria-hidden="true">
+      <svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+        <g class="calles">
+          <path d="M-10 40 L410 18 M-10 92 L410 70 M-10 146 L410 124 M-10 198 L410 176 M40 -10 L66 230 M120 -10 L146 230 M200 -10 L226 230 M280 -10 L306 230 M360 -10 L386 230"/>
+        </g>
+        <g class="avenidas">
+          <path d="M-10 168 C 90 150, 140 60, 230 64 S 350 120, 410 40"/>
+          <path d="M60 230 C 90 160, 110 100, 180 -10"/>
+        </g>
+        <path id="ruta-a" class="cometa-ruta" pathLength="100" d="M-10 168 C 90 150, 140 60, 230 64 S 350 120, 410 40"/>
+        <path id="ruta-b" class="cometa-ruta lento" pathLength="100" d="M60 230 C 90 160, 110 100, 180 -10"/>
+        <g class="nodos">
+          <circle cx="120" cy="114" r="4"/><circle cx="230" cy="64" r="4"/><circle cx="330" cy="98" r="4"/><circle cx="78" cy="152" r="4"/>
+        </g>
+        <g class="ping" transform="translate(230 64)"><circle r="6"/></g>
+        <g class="ping p2" transform="translate(78 152)"><circle r="6"/></g>
+      </svg>
     </div>
-    <p class="guia-frase" id="frase">Llevamos los pedidos de tu comercio hasta la puerta de tu cliente.</p>
-    <dl class="guia-datos">
-      <div><dt>Desde</dt><dd>LoEntrego</dd></div>
-      <div class="flecha" aria-hidden="true"><svg viewBox="0 0 40 12"><path d="M0 6h34M29 1l6 5-6 5"/></svg></div>
-      <div><dt>Para</dt><dd id="para">ti, comercio</dd></div>
-    </dl>
-    <div class="guia-pie">
-      <span class="estado"><i aria-hidden="true"></i>En camino</span>
-      <span class="zona">Bogotá · Funza · Soacha</span>
+    <button type="button" class="compartir" id="compartir" aria-label="Compartir esta página">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+    </button>
+    <div class="cab-in">
+      <div class="avatar"><img src="img/isotipo-blanco.png" alt="" width="553" height="544"></div>
+      <h1><img class="wordmark" src="img/loentrego-logo-blanco.png" alt="LoEntrego — Logística de última milla" width="1383" height="374"></h1>
+      <p class="frase" id="frase">Llevamos los pedidos de tu comercio hasta la puerta de tu cliente.</p>
+      <div class="vivo"><span class="dot" aria-hidden="true"></span><span>En ruta ahora en <b>Bogotá · Funza · Soacha</b></span></div>
     </div>
-    <div class="barras" aria-hidden="true"><span class="codigo" id="codigo">LE-0000</span></div>
-    <span class="perfora" aria-hidden="true"></span>
   </header>
 
   <!-- ===== ¿Quién eres? ===== -->
@@ -74,6 +83,6 @@
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="script.js?v=5"></script>
+<script src="script.js?v=6"></script>
 </body>
 </html>
