@@ -26,5 +26,5 @@ Para cambiar, agregar o quitar enlaces se editan solo las listas `PERFILES` y `R
 
 Antes de publicar, revisa estos enlaces, que van de ejemplo:
 
-- Instagram, Facebook y TikTok (`@loentrego`)
+- Instagram y Facebook (`@loentrego`)
 - La reseña de Google (`g.page/r/loentrego/review`)

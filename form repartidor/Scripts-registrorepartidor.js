@@ -2,14 +2,13 @@
 //  Mismo diseño y funcionamiento que el registro de comercio.
 //  Envía a POST /api/registro/:token:
 //  { rol:"repartidor", nombre, tipo_documento, documento, celular, correo,
-//    vehiculo, placa, municipio, usuario, password, acepta_datos }
+//    vehiculo:"moto", placa, usuario, password, acepta_datos }
+//  Por ahora solo moto; la zona la asigna el administrador en el panel.
 (() => {
   'use strict';
   const R = window.Registro;
   const $ = (id) => document.getElementById(id);
   const form = $('registroForm'), btn = $('submitBtn'), aviso = $('aviso');
-  const VEHICULOS = { moto: 'Moto', bicicleta: 'Bicicleta', carro: 'Carro', a_pie: 'A pie' };
-  const MUNICIPIOS = { bogota: 'Bogotá', funza: 'Funza', soacha: 'Soacha' };
 
   const avisar = (texto, tono = 'info') => { aviso.textContent = texto; aviso.dataset.tono = tono; aviso.hidden = !texto; };
 
@@ -25,22 +24,12 @@
   $('usuario').addEventListener('input', (e) => { e.target.value = e.target.value.toLowerCase().replace(/\s/g, ''); });
   $('placa').addEventListener('input', (e) => { e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); });
 
-  // La placa solo se pide para moto y carro
-  const necesitaPlaca = () => ['moto', 'carro'].includes(form.vehiculo.value);
-  const actualizarPlaca = () => {
-    $('campo-placa').hidden = !necesitaPlaca();
-    $('placa').placeholder = form.vehiculo.value === 'carro' ? 'ABC123' : 'ABC12D';
-    if (!necesitaPlaca()) R.marcar('placa', false);
-  };
-  form.querySelectorAll('input[name="vehiculo"]').forEach((r) => r.addEventListener('change', actualizarPlaca));
-  actualizarPlaca();
-
   const reglas = {
     nombre: () => R.marcar('nombre', $('nombre').value.trim().split(/\s+/).length < 2),
     documento: () => R.marcar('documento', !/^[0-9A-Za-z]{5,15}$/.test($('documento').value)),
     celular: () => R.marcar('celular', !R.celularOk($('celular').value)),
     correo: () => R.marcar('correo', !R.correoOk($('correo').value)),
-    placa: () => R.marcar('placa', necesitaPlaca() && !/^[A-Z]{3}\d{2}[A-Z0-9]$/.test($('placa').value)),
+    placa: () => R.marcar('placa', !/^[A-Z]{3}\d{2}[A-Z]$/.test($('placa').value)),
     usuario: () => R.marcar('usuario', !R.usuarioOk($('usuario').value)),
     password: () => R.marcar('password', $('password').value.length < 8),
     datos: () => R.marcar('datos', !$('datos').checked),
@@ -64,9 +53,8 @@
       documento: $('documento').value,
       celular: R.soloDigitos($('celular').value),
       correo: $('correo').value.trim().toLowerCase(),
-      vehiculo: form.vehiculo.value,
-      placa: necesitaPlaca() ? $('placa').value : null,
-      municipio: form.municipio.value,
+      vehiculo: 'moto',            // por ahora solo moto
+      placa: $('placa').value,     // la zona la asigna el administrador
       usuario: $('usuario').value.trim(),
       password: $('password').value,
       acepta_datos: true,
@@ -83,8 +71,7 @@
     }
 
     $('sum-nombre').textContent = datos.nombre;
-    $('sum-vehiculo').textContent = VEHICULOS[datos.vehiculo] + (datos.placa ? ` · ${datos.placa}` : '');
-    $('sum-zona').textContent = MUNICIPIOS[datos.municipio];
+    $('sum-vehiculo').textContent = `Moto · ${datos.placa}`;
     $('sum-contacto').textContent = `${R.formatoCelular(datos.celular)} · ${datos.correo}`;
     $('sum-usuario').textContent = datos.usuario;
     form.hidden = true;

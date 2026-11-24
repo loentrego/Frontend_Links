@@ -66,7 +66,7 @@
         </div>
 
         <div class="field">
-          <span class="label" id="lbl-municipio">Municipio</span>
+          <span class="label" id="lbl-municipio">Municipio donde estás</span>
           <div class="seg" role="radiogroup" aria-labelledby="lbl-municipio">
             <label><input type="radio" name="municipio" value="bogota" checked><span>Bogotá</span></label>
             <label><input type="radio" name="municipio" value="funza"><span>Funza</span></label>
@@ -75,8 +75,9 @@
         </div>
 
         <div class="field">
-          <label for="pedidos">Pedidos al día <small>(aproximado, opcional)</small></label>
-          <input class="input input-short" type="number" id="pedidos" name="pedidos" placeholder="Ej. 20" min="1" max="10000" inputmode="numeric">
+          <label for="pedidos">Pedidos al día <small>(aproximado)</small></label>
+          <input class="input input-short" type="number" id="pedidos" name="pedidos" placeholder="Ej. 20" min="1" max="10000" inputmode="numeric" required>
+          <p class="err" id="err-pedidos">Escribe cuántos pedidos envías al día (aprox.).</p>
         </div>
       </fieldset>
 
@@ -156,6 +157,6 @@
 </div>
 
 <script src="../registro-comun.js?v=1"></script>
-<script src="Scripts-registrocomercio.js?v=3"></script>
+<script src="Scripts-registrocomercio.js?v=4"></script>
 </body>
 </html>

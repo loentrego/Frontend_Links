@@ -160,3 +160,14 @@ html, body { height: 100%; overflow: hidden; }
 @media (max-height: 680px) { .t-txt > span, .vivo { display: none; } .ciudad { height: 120px; } }
 @media (max-height: 580px) { .frase { display: none; } }
 @media (min-width: 700px) { .col { padding-top: 1rem; padding-bottom: 1rem; } }
+/* Sin scroll en ningún caso: la página queda fija en la pantalla */
+html, body { position: fixed; inset: 0; overscroll-behavior: none; touch-action: manipulation; }
+.col { height: 100%; transform-origin: top center; }
+/* Niveles de compactación que aplica script.js si algo no cabe */
+.c1 .t-num, .c1 .vivo { display: none; }
+.c2 .t-txt > span, .c2 .ciudad { display: none; }
+.c2 .cab { padding-top: 0.75rem; }
+.c3 .frase, .c3 .avatar { display: none; }
+.c4 .pie { display: none; }
+.c4 .tarjeta { padding-block: 0.35rem; }
+@media (max-width: 370px) { .red { width: 34px; height: 34px; border-radius: 10px; } .red svg { width: 17px; height: 17px; } .redes { gap: 0.3rem; } .entregado-txt b { font-size: 0.9375rem; } }

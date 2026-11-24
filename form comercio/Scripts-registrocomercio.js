@@ -24,6 +24,7 @@
   const reglas = {
     nombre: () => R.marcar('nombre', $('nombre').value.trim().length < 2),
     direccion: () => R.marcar('direccion', $('direccion').value.trim().length < 5),
+    pedidos: () => { const n = Number($('pedidos').value); return R.marcar('pedidos', !Number.isInteger(n) || n < 1 || n > 10000); },
     celular: () => R.marcar('celular', !R.celularOk($('celular').value)),
     correo: () => R.marcar('correo', !R.correoOk($('correo').value)),
     usuario: () => R.marcar('usuario', !R.usuarioOk($('usuario').value)),
@@ -49,7 +50,7 @@
       tipo: form.tipo.value,
       direccion: $('direccion').value.trim(),
       municipio: form.municipio.value,
-      pedidos_diarios: $('pedidos').value ? Number($('pedidos').value) : null,
+      pedidos_diarios: Number($('pedidos').value),
       celular: R.soloDigitos($('celular').value),
       correo: $('correo').value.trim().toLowerCase(),
       usuario: $('usuario').value.trim(),

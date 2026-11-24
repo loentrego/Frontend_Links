@@ -46,9 +46,9 @@
   };
 
   const REDES = [
+    { nombre: 'WhatsApp', url: wa('Hola LoEntrego'), icono: 'whatsapp' },
     { nombre: 'Instagram', url: 'https://instagram.com/loentrego', icono: 'instagram' },
     { nombre: 'Facebook', url: 'https://facebook.com/loentrego', icono: 'facebook' },
-    { nombre: 'TikTok', url: 'https://tiktok.com/@loentrego', icono: 'tiktok' },
     { nombre: 'Correo', url: 'mailto:contacto@loentrego.com', icono: 'correo' },
   ];
 
@@ -108,7 +108,7 @@
           </a>
         </li>`).join('');
       lista.classList.remove('saliendo');
-      medir();
+      encajar?.(); medir();
     };
     if (animar && !reduce) { lista.classList.add('saliendo'); setTimeout(pintar, 180); } else pintar();
     if (guardar) { const u = new URL(location); u.searchParams.set('para', perfil); history.replaceState(null, '', u); }
@@ -143,7 +143,24 @@
     }
     if (!reduce) requestAnimationFrame(mover);
   }
-  addEventListener('resize', () => { posicionarLuz(); medir(); });
+  // ---------- Nunca scroll: si no cabe, se compacta por niveles y al final se escala ----------
+  const col = document.querySelector('.col');
+  function encajar() {
+    const root = document.documentElement;
+    root.classList.remove('c1', 'c2', 'c3', 'c4');
+    col.style.transform = ''; col.style.height = '';
+    const alto = window.innerHeight;
+    const sobra = () => col.scrollHeight - alto;
+    for (const nivel of ['c1', 'c2', 'c3', 'c4']) { if (sobra() <= 0) break; root.classList.add(nivel); }
+    if (sobra() > 0) {                       // último recurso: escalar todo para que quepa
+      const k = alto / col.scrollHeight;
+      col.style.height = (alto / k) + 'px';
+      col.style.transform = `scale(${k})`;
+    }
+  }
+  addEventListener('resize', () => { encajar(); posicionarLuz(); medir(); });
+  addEventListener('load', () => { encajar(); medir(); });
+  document.fonts?.ready.then(() => { encajar(); medir(); });
   addEventListener('load', medir);
   requestAnimationFrame(mover);
 

@@ -25,9 +25,9 @@
     <div class="aside-body">
       <p class="kicker">Registro de repartidor</p>
       <h1>Súbete a<br><span>la ruta.</span></h1>
-      <p class="aside-sub">Crea tu cuenta y prepárate para recibir entregas en tu zona desde la app de LoEntrego.</p>
+      <p class="aside-sub">Crea tu cuenta y prepárate para recibir entregas desde la app de LoEntrego.</p>
       <ul class="perks">
-        <li><span class="perk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><b>Cerca de casa</b><small>Repartes en la zona que elijas.</small></div></li>
+        <li><span class="perk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><b>Cerca de casa</b><small>Te asignamos una zona cerca de ti.</small></div></li>
         <li><span class="perk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg></span><div><b>Rutas claras</b><small>Cada entrega con dirección, contacto y cobro.</small></div></li>
         <li><span class="perk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.4Z"/></svg></span><div><b>Siempre acompañado</b><small>Soporte por WhatsApp mientras repartes.</small></div></li>
       </ul>
@@ -81,34 +81,14 @@
         </div>
       </fieldset>
 
-      <!-- 2. Cómo repartes -->
+      <!-- 2. Tu moto -->
       <fieldset class="block">
-        <legend><span class="n">2</span>Cómo repartes</legend>
-
+        <legend><span class="n">2</span>Tu moto</legend>
+        <p class="hint">Por ahora repartimos solo en moto. La zona donde vas a trabajar te la asigna el equipo de LoEntrego.</p>
         <div class="field">
-          <span class="label" id="lbl-vehiculo">Vehículo</span>
-          <div class="chips" role="radiogroup" aria-labelledby="lbl-vehiculo">
-            <label class="chip"><input type="radio" name="vehiculo" value="moto" checked><span>Moto</span></label>
-            <label class="chip"><input type="radio" name="vehiculo" value="bicicleta"><span>Bicicleta</span></label>
-            <label class="chip"><input type="radio" name="vehiculo" value="carro"><span>Carro</span></label>
-            <label class="chip"><input type="radio" name="vehiculo" value="a_pie"><span>A pie</span></label>
-          </div>
-        </div>
-
-        <div class="field" id="campo-placa">
-          <label for="placa">Placa</label>
-          <input class="input placa" type="text" id="placa" name="placa" placeholder="ABC12D" autocapitalize="characters" maxlength="6" autocomplete="off" spellcheck="false">
-          <p class="err" id="err-placa">Escribe la placa (p. ej. ABC12D o ABC123).</p>
-        </div>
-
-        <div class="field">
-          <span class="label" id="lbl-municipio">¿Dónde quieres repartir?</span>
-          <div class="seg" role="radiogroup" aria-labelledby="lbl-municipio">
-            <label><input type="radio" name="municipio" value="bogota" checked><span>Bogotá</span></label>
-            <label><input type="radio" name="municipio" value="funza"><span>Funza</span></label>
-            <label><input type="radio" name="municipio" value="soacha"><span>Soacha</span></label>
-          </div>
-          <p class="hint">La zona exacta la asigna el equipo de LoEntrego.</p>
+          <label for="placa">Placa de la moto</label>
+          <input class="input placa" type="text" id="placa" name="placa" placeholder="ABC12D" autocapitalize="characters" maxlength="6" autocomplete="off" spellcheck="false" required>
+          <p class="err" id="err-placa">Escribe la placa (p. ej. ABC12D).</p>
         </div>
       </fieldset>
 
@@ -155,7 +135,7 @@
         <div class="ticket-top"><span class="pill">En proceso</span><span class="ticket-code" id="sum-vehiculo"></span></div>
         <p class="ticket-name" id="sum-nombre"></p>
         <dl>
-          <div><dt>Zona</dt><dd id="sum-zona"></dd></div>
+          <div><dt>Zona</dt><dd>Te la asigna LoEntrego</dd></div>
           <div><dt>Contacto</dt><dd id="sum-contacto"></dd></div>
           <div><dt>Usuario</dt><dd id="sum-usuario"></dd></div>
         </dl>
@@ -171,6 +151,6 @@
 </div>
 
 <script src="../registro-comun.js?v=1"></script>
-<script src="Scripts-registrorepartidor.js?v=4"></script>
+<script src="Scripts-registrorepartidor.js?v=5"></script>
 </body>
 </html>
