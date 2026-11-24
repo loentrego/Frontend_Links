@@ -141,37 +141,43 @@ legend + * { clear: both; }
 
 /* =====================================================================
    Tema oscuro automático (sigue al celular o al computador)
-   Sigue siendo "Día" en estructura: panel azul + bloques, ahora sobre noche.
+   Los mismos colores del modo oscuro de la AppWeb, donde el comercio
+   va a trabajar después: índigo profundo y el lima como selección.
    ===================================================================== */
 @media (prefers-color-scheme: dark) {
   :root {
-    --lavanda: #0B0826;
-    --surface: #1A1450;
-    --line: rgba(255, 255, 255, 0.12);
-    --text: #F4F2FF;
-    --muted: #A9A2DA;
-    --fail: #FF6B83;
-    --fail-bg: rgba(255, 107, 131, 0.1);
+    --lavanda: #130F3C;          /* fondo de la página */
+    --surface: #17124A;          /* campos */
+    --line: rgba(255, 255, 255, 0.10);
+    --text: #ECE9FF;
+    --muted: #B3ADE0;
+    --fail: #FF7A88;
+    --fail-bg: rgba(255, 122, 136, 0.12);
     color-scheme: dark;
   }
-  .aside { background: linear-gradient(165deg, #3422A8 0%, #1B1370 100%); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8); }
-  .block, .done { background: #140F3A; }
-  .input { background: rgba(255, 255, 255, 0.04); }
-  .input::placeholder { color: #6E679F; }
-  .input:hover { border-color: rgba(255, 255, 255, 0.25); }
-  .input:focus { background: rgba(255, 255, 255, 0.07); border-color: #8C7BFF; box-shadow: 0 0 0 4px rgba(140, 123, 255, 0.2); }
-  .n { background: #5A48D6; }
-  .chip span { background: rgba(255, 255, 255, 0.04); }
-  .chip input:checked + span { background: #5A48D6; border-color: #5A48D6; }
-  .seg { background: rgba(255, 255, 255, 0.06); }
-  .seg input:checked + span { background: #5A48D6; color: #fff; box-shadow: none; }
-  .pass-btn:hover { background: rgba(255, 255, 255, 0.08); }
+  .aside { background: radial-gradient(80% 50% at 100% 0%, rgba(120, 100, 255, 0.45), transparent 70%), linear-gradient(165deg, #3422A8 0%, #22188A 100%); box-shadow: 0 20px 40px -18px rgba(0, 0, 0, 0.8); }
+  .block, .done { background: #1D1757; border-color: rgba(255, 255, 255, 0.10); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 10px 24px -14px rgba(0, 0, 0, 0.7); }
+  .input { background: var(--surface); border-color: rgba(255, 255, 255, 0.10); }
+  .input::placeholder { color: #8580B8; }
+  .input:hover { border-color: rgba(255, 255, 255, 0.20); }
+  .input:focus { background: var(--surface); border-color: var(--lima); box-shadow: 0 0 0 4px rgba(181, 219, 46, 0.22); }
+  .input.invalid { border-color: var(--fail); background: var(--fail-bg); }
+  .n { background: var(--lima); color: var(--tinta); }
+  .chip span { background: var(--surface); border-color: rgba(255, 255, 255, 0.10); color: var(--text); }
+  .chip input:checked + span { background: var(--lima); border-color: var(--lima); color: var(--tinta); }
+  .seg { background: #17124A; }
+  .seg span { color: var(--muted); }
+  .seg input:checked + span { background: #262064; color: var(--text); box-shadow: inset 0 0 0 1.5px var(--lima); }
+  .pass-btn { color: #8580B8; }
+  .pass-btn:hover { background: rgba(255, 255, 255, 0.06); }
   .pass-btn[aria-pressed="true"] { color: var(--lima); }
-  .aviso[data-tono="info"] { background: rgba(79, 141, 255, 0.14); color: #A9C6FF; }
+  .meter i { background: rgba(255, 255, 255, 0.10); }
+  .meter[data-n="2"] i:nth-child(-n+2) { background: #FFB547; }
   .meter[data-n="3"] i { background: var(--lima); }
+  .aviso[data-tono="error"] { background: var(--fail-bg); color: var(--fail); }
   a { color: var(--lima); }
-  :where(a, button, input):focus-visible { outline-color: var(--lima); }
-  .chip input:focus-visible + span, .seg input:focus-visible + span { outline-color: var(--lima); }
+  :where(a, button, input):focus-visible, .chip input:focus-visible + span, .seg input:focus-visible + span { outline-color: var(--lima); }
   .check input { accent-color: var(--lima); }
-  .ticket { background: linear-gradient(150deg, #3422A8, #1B1370); border: 1px solid rgba(255, 255, 255, 0.12); }
+  .done-ico { box-shadow: 0 0 0 8px rgba(181, 219, 46, 0.14); }
+  .ticket { background: linear-gradient(150deg, #3422A8, #22188A); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14); }
 }

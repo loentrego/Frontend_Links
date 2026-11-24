@@ -13,8 +13,7 @@
 
   // Enlace: vigente, vencido o modo demostración
   R.verificar('comercio').then((v) => {
-    if (v.demo) avisar('Modo demostración: puedes probar el formulario, pero no se crea ninguna cuenta.', 'info');
-    else if (!v.ok) { avisar(v.motivo, 'error'); form.querySelectorAll('input, button').forEach((el) => (el.disabled = true)); }
+    if (!v.ok) { avisar(v.motivo, 'error'); form.querySelectorAll('input, button').forEach((el) => (el.disabled = true)); }
     if (v.vence) $('link-info').textContent = `Enlace de un solo uso · vence el ${R.fechaCorta(v.vence)}`;
   });
 

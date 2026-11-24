@@ -14,8 +14,7 @@
 
   const avisar = (texto, tono = 'info') => { aviso.textContent = texto; aviso.dataset.tono = tono; aviso.hidden = !texto; };
   R.verificar('repartidor').then((v) => {
-    if (v.demo) avisar('Modo demostración: puedes probar el registro, pero no se crea ninguna cuenta.', 'info');
-    else if (!v.ok) { avisar(v.motivo, 'error'); form.querySelectorAll('input, select, button').forEach((el) => (el.disabled = true)); }
+    if (!v.ok) { avisar(v.motivo, 'error'); form.querySelectorAll('input, select, button').forEach((el) => (el.disabled = true)); }
     if (v.vence) $('link-info').textContent = `Enlace de un solo uso · vence el ${R.fechaCorta(v.vence)}`;
   });
 
