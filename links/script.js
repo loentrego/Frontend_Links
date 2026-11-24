@@ -3,7 +3,8 @@
 //  · Arriba, una mini ciudad con la ruta y el cometa (la etiqueta de envío
 //    vive ahora en Branding_LoEntrego/etiquetas para imprimir).
 //  · "¿Quién eres?": cambia las paradas según el perfil.
-//  · Cada enlace es una parada; el cometa baja por la ruta al desplazar.
+//  · Cada enlace es una parada; el cometa recorre la ruta en bucle.
+//  · Todo cabe en una pantalla: la página no tiene scroll.
 //  Para compartir un perfil ya elegido:  links/?para=repartidor
 //  Para cambiar enlaces, solo se editan PERFILES y REDES.
 // =====================================================================
@@ -122,32 +123,29 @@
     sig.focus(); elegir(sig.dataset.perfil);
   });
 
-  // ---------- El cometa baja por la ruta al desplazar ----------
+  // ---------- El cometa recorre la ruta solo (la página no tiene scroll) ----------
   const ruta = $('ruta');
-  let nodos = [], alto = 1, top0 = 0;
+  let nodos = [], t0 = performance.now();
   function medir() {
-    const r = ruta.getBoundingClientRect();
-    top0 = r.top + scrollY; alto = r.height;
-    nodos = [...ruta.querySelectorAll('.nodo')].map((n) => { const b = n.getBoundingClientRect(); return { el: n.closest('.parada, .entregado'), y: b.top + scrollY + b.height / 2 - top0 }; });
-    mover();
+    const top0 = ruta.getBoundingClientRect().top;
+    nodos = [...ruta.querySelectorAll('.nodo')].map((n) => { const b = n.getBoundingClientRect(); return { el: n.closest('.parada, .entregado'), y: b.top + b.height / 2 - top0 }; });
+    t0 = performance.now();
   }
-  function mover() {
-    // El cometa va a la altura del centro de la pantalla (y nunca antes de la primera parada)
-    const fin = nodos.length ? nodos[nodos.length - 1].y : alto;
-    const max = Math.max(0, document.documentElement.scrollHeight - innerHeight);
-    let centro = scrollY + innerHeight * 0.55 - top0;
-    // Si la página es corta, el cometa no alcanzaría el final: se reparte lo que falta en el recorrido
-    const centroMax = max + innerHeight * 0.55 - top0;
-    if (centroMax < fin) centro += (fin - centroMax) * (max ? scrollY / max : 1);
-    const y = Math.max(nodos[0]?.y || 0, Math.min(fin, centro));
-    ruta.style.setProperty('--y', y + 'px');
-    nodos.forEach((n) => n.el?.classList.toggle('pasada', n.y <= y + 2));
+  // Ciclo de 5 s: baja 3 s de la primera parada a "Entregado", espera 2 s y vuelve a empezar
+  function mover(ahora) {
+    if (nodos.length) {
+      const ini = nodos[0].y, fin = nodos[nodos.length - 1].y;
+      const k = reduce ? 1 : Math.min(1, ((ahora - t0) % 5000) / 3000);
+      const e = 1 - Math.pow(1 - k, 3);
+      const y = ini + (fin - ini) * e;
+      ruta.style.setProperty('--y', y + 'px');
+      nodos.forEach((n) => n.el?.classList.toggle('pasada', n.y <= y + 2));
+    }
+    if (!reduce) requestAnimationFrame(mover);
   }
-  let tic = false;
-  addEventListener('scroll', () => { if (!tic) { tic = true; requestAnimationFrame(() => { mover(); tic = false; }); } }, { passive: true });
-  // Al redimensionar (también cuando el celular esconde su barra) solo se recoloca: no se vuelve a dibujar
   addEventListener('resize', () => { posicionarLuz(); medir(); });
   addEventListener('load', medir);
+  requestAnimationFrame(mover);
 
   elegir(new URLSearchParams(location.search).get('para') || 'comercio', { animar: false, guardar: false });
 
