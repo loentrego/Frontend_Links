@@ -1,173 +1,94 @@
 /* =====================================================================
-   LoEntrego · Página de enlaces — "La guía y su ruta"
-   La guía (etiqueta de envío) arriba, el selector de perfil y las
-   paradas sobre una ruta vertical que el cometa recorre al desplazar.
+   LoEntrego · Página de enlaces
+   Una pantalla sin scroll: logo y frase arriba, mosaico de tarjetas
+   (WhatsApp destacado en lima) y el planeta con Bogotá asomando abajo.
    ===================================================================== */
 :root {
   --azul: #3422A8;
   --azul-oscuro: #1B1370;
   --noche: #120C52;
-  --noche-2: #0B0826;
   --lima: #B5DB2E;
   --lima-hover: #C3E64A;
   --tinta: #12092E;
-  --mov: #4F8DFF;
   --text: #FFFFFF;
   --text-2: #CFC8F7;
-  --muted: #9A94C6;
-  --glass: rgba(255, 255, 255, 0.07);
-  --glass-2: rgba(255, 255, 255, 0.12);
-  --line: rgba(255, 255, 255, 0.14);
+  --vidrio: rgba(255, 255, 255, 0.08);
+  --vidrio-2: rgba(255, 255, 255, 0.14);
+  --line: rgba(255, 255, 255, 0.15);
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --x-ruta: 22px;          /* dónde va la línea de la ruta */
   color-scheme: dark;
 }
 [hidden] { display: none !important; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 img, svg { display: block; }
 button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
-html { background: var(--noche-2); }
-body { min-height: 100dvh; font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: linear-gradient(180deg, var(--azul-oscuro) 0%, var(--noche) 35%, var(--noche-2) 100%); -webkit-font-smoothing: antialiased; }
+html, body { position: fixed; inset: 0; height: 100%; overflow: hidden; overscroll-behavior: none; }
+body { font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: linear-gradient(180deg, #2A1C9A 0%, var(--azul-oscuro) 45%, var(--noche) 100%); -webkit-font-smoothing: antialiased; }
 :where(a, button):focus-visible { outline: 2.5px solid var(--lima); outline-offset: 3px; }
 
-.col { display: flex; flex-direction: column; gap: 1.5rem; width: min(480px, 100%); min-height: 100dvh; margin: 0 auto; padding: 1.25rem 1.1rem 1.5rem; }
+/* ---------- Fondo: el planeta ---------- */
+.fondo { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+.planeta { position: absolute; left: 50%; bottom: 0; width: max(170%, 820px); max-width: none; height: auto; translate: -50% 46%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 22%); mask-image: linear-gradient(180deg, transparent 0, #000 22%);
+  opacity: 0.9; animation: subir 1.2s var(--ease) both; }
+.fondo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(18, 12, 82, 0.55) 100%); }
 
-/* ---------- Cabecera: la ciudad en vivo ---------- */
-.cab { position: relative; margin: -1.25rem -1.1rem 0; padding: 5.25rem 1.1rem 0; text-align: center; }
-.ciudad { position: absolute; inset: 0 0 auto; height: 220px; overflow: hidden;
-  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 55%, transparent 100%); }
-.ciudad svg { width: 100%; height: 100%; }
-.calles path { fill: none; stroke: rgba(255, 255, 255, 0.10); stroke-width: 1; stroke-dasharray: 2 6; stroke-linecap: round; }
-.avenidas path { fill: none; stroke: rgba(255, 255, 255, 0.26); stroke-width: 2.2; stroke-dasharray: 6 7; stroke-linecap: round; }
-.cometa-ruta { fill: none; stroke: var(--lima); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 12 120; stroke-dashoffset: 12; filter: drop-shadow(0 0 4px rgba(181, 219, 46, 0.8)); animation: cometa 4.5s linear infinite; }
-.cometa-ruta.lento { animation-duration: 6.5s; animation-delay: 1.4s; }
-.nodos circle { fill: var(--noche); stroke: var(--lima); stroke-width: 2; }
-.ping circle { fill: none; stroke: var(--lima); stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: ping 2.6s ease-out infinite; }
-.ping.p2 circle { animation-delay: 1.3s; }
-.cab-in { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
-.avatar { display: grid; place-items: center; width: 96px; height: 96px; border-radius: 28px; background: linear-gradient(150deg, var(--azul), var(--azul-oscuro)); border: 2px solid rgba(255, 255, 255, 0.18); box-shadow: 0 0 0 6px rgba(181, 219, 46, 0.16), 0 20px 40px -18px rgba(0, 0, 0, 0.7); transform: rotate(-4deg); animation: llegar 0.6s var(--ease) both; }
-.avatar img { width: 56%; height: auto; transform: rotate(4deg); }
-.cab h1 { margin-top: 1.1rem; animation: llegar 0.6s var(--ease) 0.06s both; }
-.wordmark { width: 176px; height: auto; }
-.frase { max-width: 32ch; margin-top: 0.75rem; font-family: 'Outfit', sans-serif; font-size: 1.1875rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; animation: llegar 0.6s var(--ease) 0.12s both; }
-.vivo { display: inline-flex; align-items: center; gap: 8px; margin-top: 0.9rem; padding: 6px 14px; border-radius: 999px; background: var(--glass); border: 1px solid var(--line); font-size: 0.8125rem; color: var(--text-2); animation: llegar 0.6s var(--ease) 0.18s both; }
-.vivo b { color: var(--text); font-weight: 600; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lima); box-shadow: 0 0 0 4px rgba(181, 219, 46, 0.2); animation: latido 1.6s ease-in-out infinite; }
-.compartir { position: absolute; z-index: 2; top: 1rem; right: 1.1rem; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: var(--glass-2); border: 1px solid var(--line); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: background 0.15s var(--ease); }
-.compartir:hover { background: rgba(255, 255, 255, 0.2); }
+/* ---------- Columna ---------- */
+.col { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; gap: clamp(0.9rem, 2.6dvh, 1.6rem); width: min(460px, 100%); height: 100%; margin: 0 auto; padding: max(1rem, env(safe-area-inset-top)) 1.1rem max(1.1rem, env(safe-area-inset-bottom)); transform-origin: top center; }
+
+.cab { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.compartir { position: fixed; top: max(0.9rem, env(safe-area-inset-top)); right: 1rem; z-index: 2; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: var(--vidrio-2); border: 1px solid var(--line); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.compartir:hover { background: rgba(255, 255, 255, 0.22); }
 .compartir svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.wordmark { width: clamp(150px, 24dvh, 200px); height: auto; animation: llegar 0.6s var(--ease) both; }
+.frase { margin-top: clamp(0.5rem, 1.6dvh, 0.9rem); font-family: 'Outfit', sans-serif; font-size: clamp(1.5rem, 4.2dvh, 2.125rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; animation: llegar 0.6s var(--ease) 0.06s both; }
+.frase span { color: var(--lima); }
+.zona { display: inline-flex; align-items: center; gap: 8px; margin-top: clamp(0.5rem, 1.4dvh, 0.8rem); padding: 5px 13px; border-radius: 999px; background: var(--vidrio); border: 1px solid var(--line); font-size: 0.8125rem; font-weight: 600; color: var(--text-2); animation: llegar 0.6s var(--ease) 0.12s both; }
+.zona i { width: 8px; height: 8px; border-radius: 50%; background: var(--lima); box-shadow: 0 0 0 4px rgba(181, 219, 46, 0.2); animation: latido 1.8s ease-in-out infinite; }
 
-/* ---------- ¿Quién eres? ---------- */
-.quien h2 { margin-bottom: 0.6rem; font-family: 'Outfit', sans-serif; font-size: 1.125rem; font-weight: 600; }
-.perfiles { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); padding: 4px; border-radius: 16px; background: var(--glass); border: 1px solid var(--line); }
-.perfiles button { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 0.6rem 0.25rem; border-radius: 12px; font-size: 0.8125rem; font-weight: 600; color: var(--text-2); transition: color 0.2s var(--ease); }
-.perfiles button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
-.perfiles button[aria-selected="true"] { color: var(--tinta); }
-.perfil-luz { position: absolute; z-index: 0; top: 4px; bottom: 4px; left: 4px; border-radius: 12px; background: var(--lima); box-shadow: 0 8px 20px -8px rgba(181, 219, 46, 0.7); transition: transform 0.35s var(--ease), width 0.35s var(--ease); }
-
-/* ---------- La ruta ---------- */
-.ruta { --y: 0px; position: relative; padding-left: calc(var(--x-ruta) * 2 + 6px); }
-.ruta-linea { position: absolute; left: var(--x-ruta); top: 28px; bottom: 28px; width: 2px; background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0 4px, transparent 4px 10px); }
-.ruta-hecha { position: absolute; left: 0; top: 0; width: 2px; height: calc(var(--y) - 28px); max-height: 100%; background: var(--lima); }
-.cometa { position: absolute; left: 50%; top: calc(var(--y) - 28px); width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--lima); box-shadow: 0 0 0 5px rgba(181, 219, 46, 0.18), 0 -10px 10px -2px rgba(181, 219, 46, 0.5), 0 -22px 14px -6px rgba(181, 219, 46, 0.25); }
-.paradas { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; transition: opacity 0.18s var(--ease), transform 0.18s var(--ease); }
-.paradas.saliendo { opacity: 0; transform: translateY(6px); }
-.parada { position: relative; animation: llegar 0.45s var(--ease) calc(var(--i) * 0.07s) both; }
-.nodo { position: absolute; left: calc(-1 * (var(--x-ruta) + 6px) - 7px); top: 50%; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%; background: var(--noche); border: 2px solid rgba(255, 255, 255, 0.35); transition: all 0.3s var(--ease); }
-.pasada > .nodo, .pasada .nodo { border-color: var(--lima); background: var(--lima); box-shadow: 0 0 0 5px rgba(181, 219, 46, 0.16); }
-
-.tarjeta { display: flex; align-items: center; gap: 0.85rem; padding: 0.8rem 0.85rem 0.8rem 0.75rem; border-radius: 18px; background: var(--glass); border: 1px solid var(--line); color: var(--text); text-decoration: none; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: transform 0.18s var(--ease), background 0.18s var(--ease), border-color 0.18s var(--ease); }
-.tarjeta:hover { transform: translateX(4px); background: var(--glass-2); border-color: rgba(181, 219, 46, 0.45); }
-.tarjeta:active { transform: scale(0.985); }
-.t-ico { display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: 13px; background: rgba(255, 255, 255, 0.1); }
+/* ---------- Mosaico ---------- */
+.mosaico { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.5rem, 1.3dvh, 0.75rem); }
+.tile { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: clamp(0.6rem, 2dvh, 1.1rem); min-height: clamp(96px, 15dvh, 128px); padding: clamp(0.75rem, 1.8dvh, 1rem); border-radius: 22px; background: var(--vidrio); border: 1px solid var(--line); color: var(--text); text-decoration: none; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: transform 0.2s var(--ease), background 0.2s var(--ease), border-color 0.2s var(--ease); animation: llegar 0.5s var(--ease) calc(0.18s + var(--i) * 0.05s) both; }
+.tile:hover { transform: translateY(-3px); background: var(--vidrio-2); border-color: rgba(181, 219, 46, 0.5); }
+.tile:active { transform: scale(0.98); }
+.t-ico { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: rgba(255, 255, 255, 0.12); }
 .t-ico svg, .t-flecha svg, .red svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
-.t-txt { flex: 1; min-width: 0; }
-.t-num { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.625rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
-.t-num em { font-style: normal; color: var(--lima); }
-.t-txt b { display: block; font-family: 'Outfit', sans-serif; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
-.t-txt > span { display: block; font-size: 0.8125rem; color: var(--text-2); }
-.t-flecha { display: grid; place-items: center; width: 30px; height: 30px; flex-shrink: 0; color: var(--text-2); transition: transform 0.2s var(--ease), color 0.2s var(--ease); }
-.t-flecha svg { width: 17px; height: 17px; stroke-width: 2.2; }
-.tarjeta:hover .t-flecha { transform: translate(2px, -2px); color: var(--lima); }
+.t-txt b { display: block; font-family: 'Outfit', sans-serif; font-size: 1.0625rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+.t-txt small { display: block; margin-top: 2px; font-size: 0.75rem; color: var(--text-2); }
+.t-flecha { position: absolute; top: clamp(0.75rem, 1.8dvh, 1rem); right: clamp(0.75rem, 1.8dvh, 1rem); display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; color: var(--text-2); transition: transform 0.2s var(--ease), color 0.2s var(--ease); }
+.t-flecha svg { width: 16px; height: 16px; stroke-width: 2.3; }
+.tile:hover .t-flecha { transform: translate(2px, -2px); color: var(--lima); }
 
-.destacada .tarjeta { padding-block: 1rem; background: var(--lima); border-color: transparent; color: var(--tinta); box-shadow: 0 18px 36px -16px rgba(181, 219, 46, 0.6); }
-.destacada .tarjeta:hover { background: var(--lima-hover); }
-.destacada .t-ico { background: var(--tinta); color: var(--lima); }
-.destacada .t-num, .destacada .t-txt > span { color: rgba(18, 9, 46, 0.7); }
-.destacada .t-num em { color: var(--tinta); font-weight: 700; }
-.destacada .t-txt b { font-size: 1.1875rem; font-weight: 700; }
-.destacada .t-flecha { border-radius: 50%; background: rgba(18, 9, 46, 0.1); color: var(--tinta); }
+/* Tarjetas anchas: en una fila, ícono a la izquierda */
+.tile.ancha { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: flex-start; gap: 0.85rem; min-height: 0; }
+.tile.ancha .t-flecha { position: static; margin-left: auto; }
 
-/* Parada final: entregado + redes */
-.entregado { position: relative; display: flex; margin-top: 1.25rem; }
-.nodo-fin { display: grid; place-items: center; width: 26px; height: 26px; margin-top: -13px; left: calc(-1 * (var(--x-ruta) + 6px) - 12px); top: 22px; }
-.nodo-fin svg { width: 14px; height: 14px; fill: none; stroke: var(--tinta); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transition: opacity 0.3s var(--ease); }
-.entregado.pasada .nodo-fin svg { opacity: 1; }
-.entregado-txt b { display: block; font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 700; }
-.entregado-txt small { display: block; font-size: 0.8125rem; color: var(--text-2); }
-.redes { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
-.red { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: var(--glass); border: 1px solid var(--line); color: var(--text); transition: transform 0.18s var(--ease), background 0.18s var(--ease), color 0.18s var(--ease); }
+/* Destacada: WhatsApp en lima */
+.tile.destacado { padding-block: clamp(0.9rem, 2.2dvh, 1.2rem); background: var(--lima); border-color: transparent; color: var(--tinta); box-shadow: 0 20px 40px -18px rgba(181, 219, 46, 0.7); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.tile.destacado:hover { background: var(--lima-hover); }
+.tile.destacado .t-ico { width: 46px; height: 46px; border-radius: 15px; background: var(--tinta); color: var(--lima); }
+.tile.destacado .t-txt b { font-size: 1.1875rem; font-weight: 800; }
+.tile.destacado .t-txt small { color: rgba(18, 9, 46, 0.72); font-size: 0.8125rem; }
+.tile.destacado .t-flecha { background: rgba(18, 9, 46, 0.1); color: var(--tinta); }
+
+/* ---------- Redes ---------- */
+.redes { display: flex; justify-content: center; gap: 0.55rem; animation: llegar 0.5s var(--ease) 0.5s both; }
+.red { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 15px; background: var(--vidrio); border: 1px solid var(--line); color: var(--text); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: transform 0.18s var(--ease), background 0.18s var(--ease), color 0.18s var(--ease); }
 .red:hover { transform: translateY(-3px); background: var(--lima); color: var(--tinta); }
 
-.pie { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: auto; padding-top: 0.5rem; font-size: 0.75rem; color: var(--muted); }
-.iso { width: 16px; height: 16px; background: var(--lima); -webkit-mask: url("img/isotipo-blanco.png") center / contain no-repeat; mask: url("img/isotipo-blanco.png") center / contain no-repeat; }
 .toast { position: fixed; left: 50%; bottom: 1.5rem; z-index: 10; padding: 0.6rem 1.1rem; border-radius: 999px; background: var(--lima); color: var(--tinta); font-size: 0.875rem; font-weight: 700; translate: -50% 20px; opacity: 0; transition: all 0.2s var(--ease); pointer-events: none; }
 .toast[data-show] { translate: -50% 0; opacity: 1; }
 
-@keyframes llegar { from { opacity: 0; transform: translateY(14px); } }
-@keyframes latido { 50% { opacity: 0.35; } }
-@keyframes cometa { 0% { stroke-dashoffset: 12; } 75%, 100% { stroke-dashoffset: -100; } }
-@keyframes ping { 0% { transform: scale(1); opacity: 0.9; } 100% { transform: scale(3.2); opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
-@media (min-width: 700px) { .col { padding-top: 2.5rem; padding-bottom: 2.5rem; } }
-/* El cometa se desliza suave entre posiciones (y llega solo al final si la página no se desplaza) */
-@property --y { syntax: '<length>'; inherits: true; initial-value: 0px; }
+/* Niveles de compactación (los aplica script.js solo si algo no cabe) */
+.c1 .t-txt small, .c1 .zona { display: none; }
+.c1 .tile:not(.ancha) { min-height: 76px; }
+.c2 .frase { font-size: 1.25rem; }
+.c2 .t-ico { width: 32px; height: 32px; }
+.c3 .frase { display: none; }
 
-/* =====================================================================
-   Una sola pantalla, sin scroll: todo se reparte en el alto disponible
-   ===================================================================== */
-html, body { height: 100%; overflow: hidden; }
-.col { height: 100dvh; min-height: 0; gap: clamp(0.5rem, 1.6dvh, 1rem); padding: 0.75rem 1rem max(0.6rem, env(safe-area-inset-bottom)); }
-.cab { margin: -0.75rem -1rem 0; padding: clamp(1.6rem, 5dvh, 3rem) 1rem 0; }
-.ciudad { height: clamp(130px, 22dvh, 200px); }
-.avatar { width: clamp(52px, 8dvh, 76px); height: clamp(52px, 8dvh, 76px); border-radius: 20px; }
-.cab h1 { margin-top: clamp(0.4rem, 1.2dvh, 0.8rem); }
-.wordmark { width: clamp(120px, 18dvh, 160px); }
-.frase { margin-top: 0.4rem; font-size: clamp(0.9375rem, 2dvh, 1.0625rem); }
-.vivo { margin-top: 0.5rem; padding: 4px 12px; font-size: 0.75rem; }
-.compartir { top: 0.75rem; right: 1rem; width: 38px; height: 38px; }
-.quien h2 { display: none; }
-.perfiles button { flex-direction: row; justify-content: center; gap: 6px; padding: 0.55rem 0.25rem; }
-.perfiles button svg { width: 18px; height: 18px; }
-.ruta { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
-.paradas { gap: clamp(0.4rem, 1.2dvh, 0.7rem); }
-.tarjeta { padding: clamp(0.45rem, 1.2dvh, 0.75rem) 0.75rem clamp(0.45rem, 1.2dvh, 0.75rem) 0.6rem; gap: 0.7rem; border-radius: 16px; }
-.destacada .tarjeta { padding-block: clamp(0.6rem, 1.6dvh, 0.95rem); }
-.t-ico { width: clamp(34px, 5dvh, 42px); height: clamp(34px, 5dvh, 42px); border-radius: 11px; }
-.t-txt b { font-size: 1rem; }
-.destacada .t-txt b { font-size: 1.0625rem; }
-.entregado { margin-top: clamp(0.5rem, 1.5dvh, 1rem); align-items: center; }
-.entregado-txt { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; width: 100%; }
-.entregado-txt small { display: none; }
-.entregado-txt b { font-size: 1.0625rem; }
-.nodo-fin { top: 50%; }
-.redes { margin-top: 0; gap: 0.4rem; }
-.red { width: 40px; height: 40px; border-radius: 12px; }
-.red svg { width: 19px; height: 19px; }
-.pie { padding-top: 0; font-size: 0.6875rem; }
-/* Pantallas bajitas: fuera los textos secundarios */
-@media (max-height: 760px) { .t-num { display: none; } }
-@media (max-height: 680px) { .t-txt > span, .vivo { display: none; } .ciudad { height: 120px; } }
-@media (max-height: 580px) { .frase { display: none; } }
-@media (min-width: 700px) { .col { padding-top: 1rem; padding-bottom: 1rem; } }
-/* Sin scroll en ningún caso: la página queda fija en la pantalla */
-html, body { position: fixed; inset: 0; overscroll-behavior: none; touch-action: manipulation; }
-.col { height: 100%; transform-origin: top center; }
-/* Niveles de compactación que aplica script.js si algo no cabe */
-.c1 .t-num, .c1 .vivo { display: none; }
-.c2 .t-txt > span, .c2 .ciudad { display: none; }
-.c2 .cab { padding-top: 0.75rem; }
-.c3 .frase, .c3 .avatar { display: none; }
-.c4 .pie { display: none; }
-.c4 .tarjeta { padding-block: 0.35rem; }
-@media (max-width: 370px) { .red { width: 34px; height: 34px; border-radius: 10px; } .red svg { width: 17px; height: 17px; } .redes { gap: 0.3rem; } .entregado-txt b { font-size: 0.9375rem; } }
+@media (max-width: 360px) { .red { width: 40px; height: 40px; border-radius: 13px; } .t-txt b { font-size: 0.9375rem; } }
+
+@keyframes llegar { from { opacity: 0; transform: translateY(12px); } }
+@keyframes subir { from { opacity: 0; translate: -50% 60%; } }
+@keyframes latido { 50% { opacity: 0.4; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }

@@ -2,8 +2,8 @@
 //  Mismo diseño y funcionamiento que el registro de comercio.
 //  Envía a POST /api/registro/:token:
 //  { rol:"repartidor", nombre, tipo_documento, documento, celular, correo,
-//    vehiculo:"moto", placa, usuario, password, acepta_datos }
-//  Por ahora solo moto; la zona la asigna el administrador en el panel.
+//    usuario, password, acepta_datos }
+//  Sin datos de vehículo; la zona la asigna el administrador en el panel.
 (() => {
   'use strict';
   const R = window.Registro;
@@ -22,14 +22,12 @@
   $('celular').addEventListener('input', (e) => { e.target.value = R.formatoCelular(e.target.value); });
   $('documento').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/[^0-9A-Za-z]/g, ''); });
   $('usuario').addEventListener('input', (e) => { e.target.value = e.target.value.toLowerCase().replace(/\s/g, ''); });
-  $('placa').addEventListener('input', (e) => { e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); });
 
   const reglas = {
     nombre: () => R.marcar('nombre', $('nombre').value.trim().split(/\s+/).length < 2),
     documento: () => R.marcar('documento', !/^[0-9A-Za-z]{5,15}$/.test($('documento').value)),
     celular: () => R.marcar('celular', !R.celularOk($('celular').value)),
     correo: () => R.marcar('correo', !R.correoOk($('correo').value)),
-    placa: () => R.marcar('placa', !/^[A-Z]{3}\d{2}[A-Z]$/.test($('placa').value)),
     usuario: () => R.marcar('usuario', !R.usuarioOk($('usuario').value)),
     password: () => R.marcar('password', $('password').value.length < 8),
     datos: () => R.marcar('datos', !$('datos').checked),
@@ -53,8 +51,6 @@
       documento: $('documento').value,
       celular: R.soloDigitos($('celular').value),
       correo: $('correo').value.trim().toLowerCase(),
-      vehiculo: 'moto',            // por ahora solo moto
-      placa: $('placa').value,     // la zona la asigna el administrador
       usuario: $('usuario').value.trim(),
       password: $('password').value,
       acepta_datos: true,
@@ -71,7 +67,7 @@
     }
 
     $('sum-nombre').textContent = datos.nombre;
-    $('sum-vehiculo').textContent = `Moto · ${datos.placa}`;
+    $('sum-doc').textContent = `${datos.tipo_documento.toUpperCase()} ${datos.documento}`;
     $('sum-contacto').textContent = `${R.formatoCelular(datos.celular)} · ${datos.correo}`;
     $('sum-usuario').textContent = datos.usuario;
     form.hidden = true;
