@@ -144,13 +144,19 @@
   const col = document.querySelector('.col');
   function encajar() {
     const root = document.documentElement;
-    root.classList.remove('c1', 'c2', 'c3', 'c4');
+    root.classList.remove('c0', 'c1', 'c2', 'c3', 'c4');
     col.style.transform = ''; col.style.height = '';
     const alto = window.innerHeight;
-    const sobra = () => col.scrollHeight - alto;
-    for (const nivel of ['c1', 'c2', 'c3', 'c4']) { if (sobra() <= 0) break; root.classList.add(nivel); }
+    // Lo que sobra: el final de la ruta no puede pasar el inicio del pie, ni la cabecera salirse por arriba
+    const pie = document.querySelector('.pie');
+    const sobra = () => {
+      const fin = $('ruta').getBoundingClientRect().bottom, techo = (getComputedStyle(pie).display !== 'none' ? pie.getBoundingClientRect().top : alto) - 8;
+      const arriba = -Math.min(0, col.firstElementChild.getBoundingClientRect().top);
+      return Math.max(fin - techo, arriba);
+    };
+    for (const nivel of ['c0', 'c1', 'c2', 'c3', 'c4']) { if (sobra() <= 0) break; root.classList.add(nivel); }
     if (sobra() > 0) {                       // último recurso: escalar todo para que quepa
-      const k = alto / col.scrollHeight;
+      const k = Math.max(0.6, (alto - sobra()) / alto);
       col.style.height = (alto / k) + 'px';
       col.style.transform = `scale(${k})`;
     }

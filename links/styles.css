@@ -158,3 +158,28 @@ html, body { position: fixed; inset: 0; overscroll-behavior: none; touch-action:
 .col { justify-content: center; }
 .ruta { flex: none; }
 .pie { margin-top: 0; }
+
+/* =====================================================================
+   Ritmo de espacios (se adapta al alto de la pantalla)
+   · --sec: entre secciones (perfil · perfiles · ruta)       → el más grande
+   · --med: entre paradas y antes de "Entregado"
+   · --peq: dentro de un mismo grupo (foto, nombre, bio, chip)
+   El pie va anclado abajo y no compite con el contenido.
+   ===================================================================== */
+:root { --sec: clamp(1.1rem, 4.2dvh, 2.75rem); --med: clamp(0.55rem, 1.7dvh, 1.05rem); --peq: clamp(0.35rem, 1.1dvh, 0.7rem); --pie: 2.75rem; }
+.col { gap: var(--sec); justify-content: center; padding-bottom: calc(var(--pie) + env(safe-area-inset-bottom)); }
+.cab h1 { margin-top: calc(var(--peq) * 1.4); }
+.bio { margin-top: calc(var(--peq) * 0.6); }
+.vivo { margin-top: var(--peq); }
+.paradas { gap: var(--med); }
+.entregado { margin-top: calc(var(--med) * 1.5); }
+.pie { position: fixed; left: 0; right: 0; bottom: 0; height: var(--pie); padding-bottom: env(safe-area-inset-bottom); display: flex; align-items: center; justify-content: center; margin: 0; }
+/* Pantallas bajitas: el ritmo se comprime antes de esconder cosas */
+@media (max-height: 640px) { :root { --sec: clamp(0.8rem, 3dvh, 1.2rem); --pie: 2.2rem; } }
+/* Compartir: arriba a la derecha de la columna (como en el celular), no en la esquina de la pantalla */
+.cab { width: 100%; }
+.compartir { position: absolute; top: 0; right: 0; }
+/* Centrado seguro: si no cabe, no se sale por arriba y el ajuste automático lo detecta */
+.col { justify-content: safe center; }
+/* Primer nivel de ajuste: solo se aprietan los espacios, sin esconder nada */
+:root.c0 { --sec: clamp(0.8rem, 2.6dvh, 1.6rem); --med: clamp(0.45rem, 1.2dvh, 0.8rem); }
