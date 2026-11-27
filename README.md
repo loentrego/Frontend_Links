@@ -6,7 +6,7 @@ Páginas sueltas que se comparten por enlace.
 |---|---|---|
 | `form comercio/` | Registro de comercio con el enlace de un solo uso que genera el panel admin. | Panel azul con beneficios y formulario en 3 bloques. Tema claro u oscuro automático. |
 | `form repartidor/` | Registro de repartidor con el enlace de un solo uso. | El mismo diseño del registro de comercio, en 2 bloques: datos personales y acceso. Sin datos de vehículo; la zona la asigna el administrador. |
-| `links/` | Página de enlaces (para la bio de Instagram, etc.). | Perfil arriba (foto, @loentrego con sello, bio y "En ruta ahora"); pensada para los comercios (unir su comercio, cotizar, ver condiciones y entrar a la app): los enlaces son paradas que el cometa recorre solo. Contacto por Instagram y Facebook. Una sola pantalla sin scroll. |
+| `links/` | Página de enlaces (para la bio de Instagram, etc.). | Perfil arriba (foto, @loentrego con sello, bio y "En ruta ahora"); pensada para los comercios (unir su comercio, cotizar y ver condiciones): los enlaces son paradas que el cometa recorre solo. Contacto por Instagram y Facebook. Una sola pantalla sin scroll. |
 | `registro-comun.js` | Lo que comparten los dos formularios: token, API, validaciones, celular y contraseña. | — |
 
 ## Formularios de registro

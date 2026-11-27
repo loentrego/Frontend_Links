@@ -21,7 +21,6 @@
         { titulo: 'Une tu comercio', detalle: 'Regístrate y empieza a enviar', etiqueta: 'Empieza aquí', url: 'https://loentrego.com/Pages/indexunete.html', icono: 'tienda' },
         { titulo: 'Cotiza tu envío', detalle: 'Escríbenos por Instagram', url: IG_MENSAJE, icono: 'instagram' },
         { titulo: 'Cómo funciona', detalle: 'Cobertura, tarifa y condiciones', url: 'https://loentrego.com/#condiciones', icono: 'ruta' },
-        { titulo: 'Entra a la app', detalle: 'Crea y sigue tus pedidos', url: 'https://app.loentrego.com/', icono: 'app' },
       ],
     },
   };
