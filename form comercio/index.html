@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="Styles-registrocomercio.css?v=8">
+<link rel="stylesheet" href="Styles-registrocomercio.css?v=9">
 <link rel="icon" href="img/icon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 </head>
@@ -97,7 +97,8 @@
 
       <!-- 3. Acceso -->
       <fieldset class="block">
-        <legend><span class="n">3</span>Tu acceso a la app</legend>
+        <legend><span class="n">3</span>Crea tus datos de acceso</legend>
+        <p class="hint acceso-sub">Elige tú el usuario y la contraseña con los que vas a entrar a la app.</p>
         <div class="row">
           <div class="field">
             <label for="usuario">Usuario</label>
@@ -121,6 +122,7 @@
           <span>Acepto el tratamiento de mis datos para operar mis envíos (Ley 1581 de 2012).</span>
         </label>
         <p class="err" id="err-datos">Necesitamos tu autorización para crear la cuenta.</p>
+        <p class="aviso-seg" role="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="M12 8v5M12 16h.01"/></svg><span><b>No compartas tu usuario ni tu contraseña con nadie.</b> Nadie de LoEntrego te los va a pedir nunca, ni por llamada, mensaje o correo.</span></p>
       </fieldset>
 
       <button type="submit" class="submit" id="submitBtn">
