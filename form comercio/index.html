@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="Styles-registrocomercio.css?v=7">
+<link rel="stylesheet" href="Styles-registrocomercio.css?v=8">
 <link rel="icon" href="img/icon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 </head>
@@ -74,11 +74,6 @@
           </div>
         </div>
 
-        <div class="field">
-          <label for="pedidos">Pedidos al día <small>(aproximado)</small></label>
-          <input class="input input-short" type="number" id="pedidos" name="pedidos" placeholder="Ej. 20" min="1" max="10000" inputmode="numeric" required>
-          <p class="err" id="err-pedidos">Escribe cuántos pedidos envías al día (aprox.).</p>
-        </div>
       </fieldset>
 
       <!-- 2. Contacto -->
@@ -89,11 +84,13 @@
             <label for="celular">Celular</label>
             <input class="input" type="tel" id="celular" name="celular" placeholder="300 123 4567" inputmode="numeric" autocomplete="tel" maxlength="12" required>
             <p class="err" id="err-celular">10 dígitos y empieza por 3.</p>
+            <p class="hint">Debe tener WhatsApp: por ahí te contactamos.</p>
           </div>
           <div class="field">
             <label for="correo">Correo</label>
             <input class="input" type="email" id="correo" name="correo" placeholder="hola@tucomercio.com" autocomplete="email" maxlength="120" required>
             <p class="err" id="err-correo">Revisa el correo.</p>
+            <p class="hint">Usa un correo que revises seguido (Gmail, Outlook o de tu dominio): por ahí te llegan avisos importantes.</p>
           </div>
         </div>
       </fieldset>
@@ -152,11 +149,11 @@
       </a>
     </section>
 
-    <p class="help">¿Dudas? Escríbenos a <a href="https://wa.me/573101234567" target="_blank" rel="noopener">WhatsApp</a> o a <a href="mailto:contacto@loentrego.com">contacto@loentrego.com</a></p>
+    <p class="help">¿Dudas? Escríbenos a <a href="mailto:contacto@loentrego.com">contacto@loentrego.com</a></p>
   </main>
 </div>
 
 <script src="../registro-comun.js?v=1"></script>
-<script src="Scripts-registrocomercio.js?v=4"></script>
+<script src="Scripts-registrocomercio.js?v=5"></script>
 </body>
 </html>

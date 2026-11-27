@@ -1,6 +1,6 @@
 // ============ Registro de comercio ============
 //  Envía a POST /api/registro/:token:
-//  { rol:"comercio", nombre, tipo, direccion, municipio, pedidos_diarios, celular, correo, usuario, password, acepta_datos }
+//  { rol:"comercio", nombre, tipo, direccion, municipio, celular, correo, usuario, password, acepta_datos }
 (() => {
   'use strict';
   const R = window.Registro;
@@ -24,7 +24,6 @@
   const reglas = {
     nombre: () => R.marcar('nombre', $('nombre').value.trim().length < 2),
     direccion: () => R.marcar('direccion', $('direccion').value.trim().length < 5),
-    pedidos: () => { const n = Number($('pedidos').value); return R.marcar('pedidos', !Number.isInteger(n) || n < 1 || n > 10000); },
     celular: () => R.marcar('celular', !R.celularOk($('celular').value)),
     correo: () => R.marcar('correo', !R.correoOk($('correo').value)),
     usuario: () => R.marcar('usuario', !R.usuarioOk($('usuario').value)),
@@ -50,7 +49,6 @@
       tipo: form.tipo.value,
       direccion: $('direccion').value.trim(),
       municipio: form.municipio.value,
-      pedidos_diarios: Number($('pedidos').value),
       celular: R.soloDigitos($('celular').value),
       correo: $('correo').value.trim().toLowerCase(),
       usuario: $('usuario').value.trim(),

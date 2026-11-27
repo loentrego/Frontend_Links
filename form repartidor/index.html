@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="Styles-registrorepartidor.css?v=9">
+<link rel="stylesheet" href="Styles-registrorepartidor.css?v=10">
 <link rel="icon" href="img/icon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 </head>
@@ -29,7 +29,7 @@
       <ul class="perks">
         <li><span class="perk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><div><b>Cerca de casa</b><small>Te asignamos una zona cerca de ti.</small></div></li>
         <li><span class="perk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg></span><div><b>Rutas claras</b><small>Cada entrega con dirección, contacto y cobro.</small></div></li>
-        <li><span class="perk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.4Z"/></svg></span><div><b>Siempre acompañado</b><small>Soporte por WhatsApp mientras repartes.</small></div></li>
+        <li><span class="perk-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></span><div><b>Siempre acompañado</b><small>El equipo te apoya mientras repartes.</small></div></li>
       </ul>
     </div>
     <p class="aside-foot" id="link-info">Enlace de un solo uso</p>
@@ -69,14 +69,16 @@
 
         <div class="row">
           <div class="field">
-            <label for="celular">Celular (con WhatsApp)</label>
+            <label for="celular">Celular</label>
             <input class="input" type="tel" id="celular" name="celular" placeholder="300 123 4567" inputmode="numeric" autocomplete="tel" maxlength="12" required>
             <p class="err" id="err-celular">10 dígitos y empieza por 3.</p>
+            <p class="hint">Debe tener WhatsApp: por ahí te contactamos.</p>
           </div>
           <div class="field">
             <label for="correo">Correo</label>
             <input class="input" type="email" id="correo" name="correo" placeholder="camilo@correo.com" autocomplete="email" maxlength="120" required>
             <p class="err" id="err-correo">Revisa el correo.</p>
+            <p class="hint">Usa un correo que revises seguido (Gmail, Outlook o de tu dominio): por ahí te llegan avisos importantes.</p>
           </div>
         </div>
       </fieldset>
@@ -135,7 +137,7 @@
       </a>
     </section>
 
-    <p class="help">¿Dudas? Escríbenos a <a href="https://wa.me/573101234567?text=Hola%2C%20tengo%20una%20duda%20con%20mi%20registro%20de%20repartidor" target="_blank" rel="noopener">WhatsApp</a> o a <a href="mailto:contacto@loentrego.com">contacto@loentrego.com</a></p>
+    <p class="help">¿Dudas? Escríbenos a <a href="mailto:contacto@loentrego.com">contacto@loentrego.com</a></p>
   </main>
 </div>
 

@@ -8,7 +8,7 @@
 // =====================================================================
 (() => {
   'use strict';
-  // Hoy el contacto es por Instagram y Facebook (WhatsApp aún no está activo)
+  // El contacto es por Instagram y Facebook
   const IG_MENSAJE = 'https://ig.me/m/loentrego';
 
   // Paradas de cada perfil (la primera va destacada en lima)
@@ -31,7 +31,6 @@
   ];
 
   const ICONOS = {
-    whatsapp: '<path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.4Z"/><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1-1.3 2 .9c-.3 1.3-1.4 2-2.7 1.8-3-.5-5.7-3.2-6.2-6.2-.2-1.3.5-2.4 1.8-2.7l.9 2Z"/>',
     tienda: '<path d="M3 9.5 12 4l9 5.5V20H3Z"/><path d="M9 20v-6h6v6"/>',
     ruta: '<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/>',
     moto: '<circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5h5l3.5-6h3l1.5 6M14 10.5l-1.5-3H10M17 10.5l1-2.5h2.5"/>',
