@@ -220,3 +220,8 @@ select.input { appearance: none; padding-right: 34px; cursor: pointer; backgroun
 .aviso-seg svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; fill: none; stroke: #E07510; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .aviso-seg b { font-weight: 700; }
 @media (prefers-color-scheme: dark) { .aviso-seg svg { stroke: #FFB547; } }
+
+/* Avisos cortos bajo un campo: pastilla con ícono */
+.aviso-chip { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; padding: 3px 10px 3px 7px; border-radius: 999px; background: rgba(181, 219, 46, 0.14); border: 1px solid rgba(141, 176, 28, 0.35); color: #4E6A00; font-size: 0.6875rem; font-weight: 600; line-height: 1.3; white-space: nowrap; }
+.aviso-chip svg { width: 13px; height: 13px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@media (prefers-color-scheme: dark) { .aviso-chip { color: #C9E86A; background: rgba(181, 219, 46, 0.12); border-color: rgba(181, 219, 46, 0.3); } }
