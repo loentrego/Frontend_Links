@@ -1,10 +1,9 @@
 // =====================================================================
 //  LoEntrego · Página de enlaces: el perfil y la ruta
 //  · Arriba, el perfil: foto con órbita, @loentrego, bio y "En ruta ahora".
-//  · "¿Quién eres?": cambia las paradas según el perfil.
+//  · Pensada solo para el cliente final: seguir su pedido y calificar.
 //  · Cada enlace es una parada; el cometa recorre la ruta en bucle.
 //  · Todo cabe en una pantalla: la página no tiene scroll.
-//  Para compartir un perfil ya elegido:  links/?para=repartidor
 //  Para cambiar enlaces, solo se editan PERFILES y REDES.
 // =====================================================================
 (() => {
@@ -13,33 +12,15 @@
   const IG_MENSAJE = 'https://ig.me/m/loentrego';
 
   // Paradas de cada perfil (la primera va destacada en lima)
+  // Solo para el cliente final (quien espera un pedido)
   const PERFILES = {
-    comercio: {
-      para: 'ti, comercio',
-      frase: 'Llevamos los pedidos de tu comercio hasta la puerta de tu cliente.',
-      paradas: [
-        { titulo: 'Cotiza tu envío', detalle: 'Escríbenos por Instagram', etiqueta: 'Más rápido', url: IG_MENSAJE, icono: 'instagram' },
-        { titulo: 'Registra tu comercio', detalle: 'Déjanos tus datos y te contactamos', url: 'https://loentrego.com/Pages/indexunete.html', icono: 'tienda' },
-        { titulo: 'Cómo funciona', detalle: 'Cobertura, tarifa y pasos', url: 'https://loentrego.com/', icono: 'ruta' },
-        { titulo: 'Entra a la app', detalle: 'Crea y sigue tus pedidos', url: 'https://app.loentrego.com/', icono: 'app' },
-      ],
-    },
-    repartidor: {
-      para: 'ti, repartidor',
-      frase: 'Súbete a la ruta: entregas cerca de ti, con todo claro en la app.',
-      paradas: [
-        { titulo: 'Quiero repartir', detalle: 'Escríbenos por Instagram y te contamos', etiqueta: 'Únete', url: IG_MENSAJE, icono: 'moto' },
-        { titulo: 'Conoce LoEntrego', detalle: 'Dónde operamos y cómo trabajamos', url: 'https://loentrego.com/Pages/indexnosotros.html', icono: 'ruta' },
-        { titulo: 'Entra a la app', detalle: 'Tu ruta del día', url: 'https://app.loentrego.com/', icono: 'app' },
-      ],
-    },
     cliente: {
       para: 'ti, que esperas un pedido',
       frase: 'Tu pedido va en camino. Aquí te ayudamos a seguirlo.',
       paradas: [
         { titulo: '¿Dónde va mi pedido?', detalle: 'Escríbenos por Instagram con tu código LOE-', etiqueta: 'Seguimiento', url: IG_MENSAJE, icono: 'caja' },
         { titulo: 'Califica tu entrega', detalle: 'Tu opinión en Google nos ayuda', url: 'https://g.page/r/loentrego/review', icono: 'estrella' },
-        { titulo: '¿Tienes un negocio?', detalle: 'Envía tus pedidos con nosotros', url: 'https://loentrego.com/Pages/indexunete.html', icono: 'tienda' },
+        { titulo: 'Cómo hacemos tus entregas', detalle: 'Conoce LoEntrego', url: 'https://loentrego.com/', icono: 'ruta' },
       ],
     },
   };
@@ -82,7 +63,7 @@
     if (b) { luz.style.width = b.offsetWidth + 'px'; luz.style.transform = `translateX(${b.offsetLeft - 4}px)`; }
   }
   function elegir(perfil, { animar = true, guardar = true } = {}) {
-    if (!PERFILES[perfil]) perfil = 'comercio';
+    if (!PERFILES[perfil]) perfil = 'cliente';
     const p = PERFILES[perfil];
     botones.forEach((b) => {
       const act = b.dataset.perfil === perfil;
@@ -110,11 +91,10 @@
       encajar?.(); medir();
     };
     if (animar && !reduce) { lista.classList.add('saliendo'); setTimeout(pintar, 180); } else pintar();
-    if (guardar) { const u = new URL(location); u.searchParams.set('para', perfil); history.replaceState(null, '', u); }
   }
   botones.forEach((b) => b.addEventListener('click', () => elegir(b.dataset.perfil)));
   // Flechas del teclado entre perfiles
-  document.querySelector('.perfiles').addEventListener('keydown', (e) => {
+  document.querySelector('.perfiles')?.addEventListener('keydown', (e) => {
     const i = botones.findIndex((b) => b.getAttribute('aria-selected') === 'true');
     const n = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
     if (!n) return;
@@ -169,7 +149,7 @@
   addEventListener('load', medir);
   requestAnimationFrame(mover);
 
-  elegir(new URLSearchParams(location.search).get('para') || 'comercio', { animar: false, guardar: false });
+  elegir('cliente', { animar: false, guardar: false });
 
   // ---------- Compartir ----------
   const toast = $('toast');
