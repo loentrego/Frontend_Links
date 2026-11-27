@@ -1,7 +1,7 @@
 // ============ Registro de repartidor ============
 //  Mismo diseño y funcionamiento que el registro de comercio.
 //  Envía a POST /api/registro/:token:
-//  { rol:"repartidor", nombre, tipo_documento, documento, celular, correo,
+//  { rol:"repartidor", nombre, documento (cédula de ciudadanía), celular, correo,
 //    usuario, password, acepta_datos }
 //  Sin datos de vehículo; la zona la asigna el administrador en el panel.
 (() => {
@@ -20,12 +20,12 @@
 
   R.contrasena('password', 'togglePass', form.querySelector('.meter'));
   $('celular').addEventListener('input', (e) => { e.target.value = R.formatoCelular(e.target.value); });
-  $('documento').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/[^0-9A-Za-z]/g, ''); });
+  $('documento').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, ''); });
   $('usuario').addEventListener('input', (e) => { e.target.value = e.target.value.toLowerCase().replace(/\s/g, ''); });
 
   const reglas = {
     nombre: () => R.marcar('nombre', $('nombre').value.trim().split(/\s+/).length < 2),
-    documento: () => R.marcar('documento', !/^[0-9A-Za-z]{5,15}$/.test($('documento').value)),
+    documento: () => R.marcar('documento', !/^[0-9]{6,10}$/.test($('documento').value)),
     celular: () => R.marcar('celular', !R.celularOk($('celular').value)),
     correo: () => R.marcar('correo', !R.correoOk($('correo').value)),
     usuario: () => R.marcar('usuario', !R.usuarioOk($('usuario').value)),
@@ -47,7 +47,6 @@
     const datos = {
       rol: 'repartidor',
       nombre: $('nombre').value.trim().replace(/\s+/g, ' '),
-      tipo_documento: $('tipo_documento').value,
       documento: $('documento').value,
       celular: R.soloDigitos($('celular').value),
       correo: $('correo').value.trim().toLowerCase(),
@@ -67,7 +66,7 @@
     }
 
     $('sum-nombre').textContent = datos.nombre;
-    $('sum-doc').textContent = `${datos.tipo_documento.toUpperCase()} ${datos.documento}`;
+    $('sum-doc').textContent = `C.C. ${datos.documento}`;
     $('sum-contacto').textContent = `${R.formatoCelular(datos.celular)} · ${datos.correo}`;
     $('sum-usuario').textContent = datos.usuario;
     form.hidden = true;

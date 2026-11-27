@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="Styles-registrorepartidor.css?v=12">
+<link rel="stylesheet" href="Styles-registrorepartidor.css?v=13">
 <link rel="icon" href="img/icon-192.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 </head>
@@ -50,21 +50,10 @@
           <p class="err" id="err-nombre">Escribe tu nombre y tu apellido.</p>
         </div>
 
-        <div class="doc">
-          <div class="field">
-            <label for="tipo_documento">Documento</label>
-            <select class="input" id="tipo_documento" name="tipo_documento">
-              <option value="cc">C.C.</option>
-              <option value="ce">C.E.</option>
-              <option value="ppt">PPT</option>
-              <option value="pasaporte">Pasaporte</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="documento">Número</label>
-            <input class="input" type="text" id="documento" name="documento" placeholder="Ej. 1012345678" inputmode="numeric" maxlength="15" required>
-            <p class="err" id="err-documento">Entre 5 y 15 caracteres.</p>
-          </div>
+        <div class="field">
+          <label for="documento">Cédula de ciudadanía</label>
+          <input class="input" type="text" id="documento" name="documento" placeholder="Ej. 1012345678" inputmode="numeric" maxlength="10" autocomplete="off" required>
+          <p class="err" id="err-documento">Escribe tu cédula: solo números, entre 6 y 10 dígitos.</p>
         </div>
 
         <div class="row">
@@ -144,6 +133,6 @@
 </div>
 
 <script src="../registro-comun.js?v=1"></script>
-<script src="Scripts-registrorepartidor.js?v=6"></script>
+<script src="Scripts-registrorepartidor.js?v=7"></script>
 </body>
 </html>

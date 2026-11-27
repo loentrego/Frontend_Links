@@ -183,7 +183,6 @@ legend + * { clear: both; }
 }
 
 /* Propio del repartidor: documento (tipo + número) y placa */
-.doc { display: grid; grid-template-columns: 120px 1fr; gap: 0.75rem; }
 select.input { appearance: none; padding-right: 34px; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235D5889' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; }
 .input.placa { max-width: 180px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
 .field[hidden] { display: none; }
@@ -192,7 +191,6 @@ select.input { appearance: none; padding-right: 34px; cursor: pointer; backgroun
   select.input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B3ADE0' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); }
   select.input option { background: #1D1757; }
 }
-@media (max-width: 520px) { .doc { grid-template-columns: 100px 1fr; } }
 
 
 /* Escritorio: los dos cuadros a la misma altura (la de antes, con aire arriba) */
