@@ -1,7 +1,7 @@
 // =====================================================================
 //  LoEntrego · Página de enlaces: el perfil y la ruta
 //  · Arriba, el perfil: foto con órbita, @loentrego, bio y "En ruta ahora".
-//  · Pensada solo para el cliente final: seguir su pedido y calificar.
+//  · Pensada para los comercios (nuestros clientes): unirse, cotizar y entrar a la app.
 //  · Cada enlace es una parada; el cometa recorre la ruta en bucle.
 //  · Todo cabe en una pantalla: la página no tiene scroll.
 //  Para cambiar enlaces, solo se editan PERFILES y REDES.
@@ -12,15 +12,16 @@
   const IG_MENSAJE = 'https://ig.me/m/loentrego';
 
   // Paradas de cada perfil (la primera va destacada en lima)
-  // Solo para el cliente final (quien espera un pedido)
+  // Para nuestros clientes: los comercios. Invita a unir el comercio a LoEntrego.
   const PERFILES = {
-    cliente: {
-      para: 'ti, que esperas un pedido',
-      frase: 'Tu pedido va en camino. Aquí te ayudamos a seguirlo.',
+    comercio: {
+      para: 'tu comercio',
+      frase: 'Une tu comercio a LoEntrego: recogemos tus pedidos y los llevamos hasta tu cliente.',
       paradas: [
-        { titulo: '¿Dónde va mi pedido?', detalle: 'Escríbenos por Instagram con tu código LOE-', etiqueta: 'Seguimiento', url: IG_MENSAJE, icono: 'caja' },
-        { titulo: 'Califica tu entrega', detalle: 'Tu opinión en Google nos ayuda', url: 'https://g.page/r/loentrego/review', icono: 'estrella' },
-        { titulo: 'Cómo hacemos tus entregas', detalle: 'Conoce LoEntrego', url: 'https://loentrego.com/', icono: 'ruta' },
+        { titulo: 'Une tu comercio', detalle: 'Regístrate y empieza a enviar', etiqueta: 'Empieza aquí', url: 'https://loentrego.com/Pages/indexunete.html', icono: 'tienda' },
+        { titulo: 'Cotiza tu envío', detalle: 'Escríbenos por Instagram', url: IG_MENSAJE, icono: 'instagram' },
+        { titulo: 'Cómo funciona', detalle: 'Cobertura, tarifa y condiciones', url: 'https://loentrego.com/#condiciones', icono: 'ruta' },
+        { titulo: 'Entra a la app', detalle: 'Crea y sigue tus pedidos', url: 'https://app.loentrego.com/', icono: 'app' },
       ],
     },
   };
@@ -63,7 +64,7 @@
     if (b) { luz.style.width = b.offsetWidth + 'px'; luz.style.transform = `translateX(${b.offsetLeft - 4}px)`; }
   }
   function elegir(perfil, { animar = true, guardar = true } = {}) {
-    if (!PERFILES[perfil]) perfil = 'cliente';
+    if (!PERFILES[perfil]) perfil = 'comercio';
     const p = PERFILES[perfil];
     botones.forEach((b) => {
       const act = b.dataset.perfil === perfil;
@@ -149,7 +150,7 @@
   addEventListener('load', medir);
   requestAnimationFrame(mover);
 
-  elegir('cliente', { animar: false, guardar: false });
+  elegir('comercio', { animar: false, guardar: false });
 
   // ---------- Compartir ----------
   const toast = $('toast');
